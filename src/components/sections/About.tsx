@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { about } from "@/data/about";
+import { renderSegments } from "@/lib/segments";
 import { SectionHead } from "./SectionHead";
 import { PhotoCorner } from "./PhotoCorner";
 
@@ -25,24 +26,12 @@ export function About() {
               />
               <PhotoCorner />
             </div>
-            <div className="about-photo-caption">
-              <span>{about.photoCaption}</span>
-              <span className="ix">02 / 09</span>
-            </div>
           </div>
           <div className="about-text">
             {about.blocks.map((b) => (
               <div key={b.label} className="about-block">
                 <div className="label">{b.label}</div>
-                <p>
-                  {b.text}
-                  {b.dim && (
-                    <>
-                      {" "}
-                      <span className="dim">{b.dim}</span>
-                    </>
-                  )}
-                </p>
+                <p>{renderSegments(b.body)}</p>
               </div>
             ))}
 

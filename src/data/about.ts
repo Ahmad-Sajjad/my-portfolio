@@ -3,37 +3,54 @@ import type { AboutContent } from "@/types/portfolio";
 export const about: AboutContent = {
   eyebrow: "About",
   title: ["A short note about ", { em: "how I work." }],
-  meta: "3 yrs · 24+ ships",
+  meta: "3 yrs · selected work",
   blocks: [
     {
       label: "01. Background",
-      text: "I started building products three years ago and haven't stopped.",
-      dim: "Today I run Reivex.io — a small studio shipping production-grade software across web, mobile, enterprise systems and AI.",
+      body: [
+        {
+          strong:
+            "I've been building production systems for three years and haven't stopped.",
+        },
+        " Today I run ",
+        { strong: "Reivex.io" },
+        " — a studio that ships web, mobile, enterprise, and AI-powered products that real teams depend on daily.",
+      ],
     },
     {
       label: "02. Approach",
-      text: 'Most "engineering" is decisions.',
-      dim: "I work in tight loops with founders and teams — translating fuzzy goals into shipped code, holding the bar on performance, reliability and UX without drowning the timeline.",
+      body: [
+        { strong: 'Most "building" is really scoping.' },
+        " I take ideas from first conversation to shipped product — clarifying requirements, designing architecture, writing code, and hitting the deadline. The work is maintainable by whoever comes after me.",
+      ],
     },
     {
-      label: "03. Lately",
-      text: "Building AI-powered tools at Reivex, contributing across the stack on three live products,",
-      dim: "and looking for one or two more interesting problems to take from zero to one this year.",
+      label: "03. Track Record",
+      body: [
+        "Gamified platforms for international clients. ",
+        { strong: "A country's first online marketplace." },
+        " ERP and HR suites running in 15+ companies. AI-driven automation at scale. I've owned scope, team, and delivery not just the code.",
+      ],
+    },
+    {
+      label: "04. Lately",
+      body: [
+        "Currently shipping AI-powered products at Reivex across the full stack. Selectively taking on founding-engineer roles, technical leadership, and focused builds from zero to one.",
+      ],
     },
   ],
-  photoCaption: "Portrait · Lahore · 2026",
   principles: [
     {
-      label: "01. Ship",
-      text: "Move on what matters; sweat the parts that compound.",
+      label: "01. Scope",
+      text: "Fuzzy goals become shipped products. Clarity first, code second.",
     },
     {
-      label: "02. Craft",
-      text: "Treat the boring infrastructure as the product itself.",
+      label: "02. Ship",
+      text: "Production-grade or not at all. Infrastructure is the product.",
     },
     {
-      label: "03. Trust",
-      text: "Tight loops with founders. No over-engineering, no theatre.",
+      label: "03. Own it",
+      text: "I scope, lead, build, and stand behind the work. No handoffs.",
     },
   ],
   resume: { label: "resume.pdf — 84 kb", href: "/resume.pdf" },

@@ -3,17 +3,16 @@ import type { TextSegment } from "@/types/portfolio";
 
 /**
  * Render a `TextSegment[]` to React: plain strings stay as text,
- * `{ em }` segments become `<em>` with the design's italic-accent style
- * (driven by CSS, e.g. `.section-title em`, `.hero h1 em`).
+ * `{ em }` segments become italic-accent `<em>`, `{ strong }` segments
+ * become full-color `<strong>` (against an otherwise dimmed body).
  *
- * Pass into headings / quotes / sentences instead of dangerouslySetInnerHTML.
+ * Pass into headings, paragraphs, and quotes instead of
+ * dangerouslySetInnerHTML.
  */
 export function renderSegments(segments: TextSegment[]): ReactNode {
-  return segments.map((s, i) =>
-    typeof s === "string" ? (
-      <Fragment key={i}>{s}</Fragment>
-    ) : (
-      <em key={i}>{s.em}</em>
-    ),
-  );
+  return segments.map((s, i) => {
+    if (typeof s === "string") return <Fragment key={i}>{s}</Fragment>;
+    if ("em" in s) return <em key={i}>{s.em}</em>;
+    return <strong key={i}>{s.strong}</strong>;
+  });
 }

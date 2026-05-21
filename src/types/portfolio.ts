@@ -6,7 +6,7 @@
  * tiny helper instead of `dangerouslySetInnerHTML`.
  */
 
-export type TextSegment = string | { em: string };
+export type TextSegment = string | { em: string } | { strong: string };
 
 export type NavLink = { id: string; label: string };
 
@@ -30,7 +30,7 @@ export type HeroContent = {
   marqueeWords: string[];
 };
 
-export type AboutBlock = { label: string; text: string; dim?: string };
+export type AboutBlock = { label: string; body: TextSegment[] };
 
 export type Principle = { label: string; text: string };
 
@@ -39,7 +39,6 @@ export type AboutContent = {
   title: TextSegment[];
   meta: string;
   blocks: AboutBlock[];
-  photoCaption: string;
   principles: Principle[];
   resume: { label: string; href: string };
 };

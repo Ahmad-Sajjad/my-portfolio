@@ -69,6 +69,15 @@
 
 * { box-sizing: border-box; }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
 html, body {
   margin: 0; padding: 0;
   background: var(--bg);
@@ -194,6 +203,60 @@ body::after {
   0%   { transform: scale(0.8); opacity: 0.7; }
   70%  { transform: scale(1.6); opacity: 0; }
   100% { transform: scale(0.8); opacity: 0; }
+}
+
+/* ─── theme transitions ─────────────────────────────────── */
+/* Class is added by ThemeProvider for ~500ms during a manual toggle,
+   then removed. Browsers with View Transitions API handle the animation
+   themselves and never see this class. */
+html.theme-animating,
+html.theme-animating *,
+html.theme-animating *::before,
+html.theme-animating *::after {
+  transition-property: background-color, border-color, color, fill, stroke,
+    box-shadow, -webkit-text-stroke-color !important;
+  transition-duration: 0.4s !important;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+/* View Transitions API — modern browsers (Chrome/Edge/Safari). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+/* nav theme toggle */
+.theme-toggle {
+  appearance: none;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid; place-items: center;
+  line-height: 1;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+  margin-left: 4px;
+}
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.theme-toggle:hover {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: rotate(20deg);
 }
 
 /* ─── shared layout ─────────────────────────────────────── */
@@ -341,8 +404,8 @@ section {
   color: var(--text-dim);
   display: flex; flex-direction: column;
   border-left: 1px solid var(--border-strong);
-  align-self: start;
-  padding-top: 4px;
+  align-self: end;
+  padding-bottom: 10px;
 }
 .hero-meta .meta-row {
   display: flex; flex-direction: column; gap: 4px;
@@ -404,24 +467,12 @@ section {
 /* ─── about ─────────────────────────────────────────────── */
 .about-grid {
   display: grid;
-  grid-template-columns: 3fr 8fr;
+  grid-template-columns: 240px 1fr;
   gap: 64px;
   align-items: start;
 }
 .about-photo-wrap {
   position: sticky; top: 100px;
-  display: flex; flex-direction: column; gap: 10px;
-}
-.about-photo-caption {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  display: flex; justify-content: space-between; align-items: baseline;
-}
-.about-photo-caption .ix {
-  color: var(--accent);
 }
 .about-photo {
   position: relative;
@@ -481,11 +532,14 @@ section {
   font-weight: 350;
   margin: 0;
   letter-spacing: -0.005em;
-  color: var(--text);
+  color: var(--text-dim);
   text-wrap: pretty;
   font-variation-settings: "opsz" 30, "SOFT" 30;
 }
-.about-block p .dim { color: var(--text-dim); }
+.about-block p strong {
+  color: var(--text);
+  font-weight: 500;
+}
 
 .currently {
   margin-top: 36px;
