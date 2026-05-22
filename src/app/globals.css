@@ -1554,23 +1554,50 @@ section {
   font-variation-settings: "opsz" 144, "SOFT" 30;
 }
 .contact h2 em { font-style: italic; font-weight: 350; color: var(--accent); font-variation-settings: "opsz" 144, "SOFT" 100; }
-.contact .email-link {
-  display: inline-block;
-  margin-top: 36px;
-  font-family: var(--font-serif);
-  font-size: clamp(30px, 4.6vw, 64px);
-  font-weight: 350;
-  line-height: 1;
-  letter-spacing: -0.025em;
-  color: var(--text);
-  text-decoration: none;
-  border-bottom: 2px solid var(--text);
-  padding-bottom: 8px;
-  transition: color 0.25s, border-color 0.25s;
-  font-style: italic;
-  font-variation-settings: "opsz" 144, "SOFT" 100;
+/* Email CTA — accent-filled pill button. Strong visual hook so visitors
+   immediately recognise the primary action. */
+.contact .email-row {
+  display: flex !important;
+  align-items: center;
+  gap: 24px;
+  margin-top: 40px !important;
+  flex-wrap: wrap;
 }
-.contact .email-link:hover { color: var(--accent); border-color: var(--accent); }
+.contact .email-row a.email-button,
+.contact a.email-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  color: var(--accent-ink) !important;
+  background: var(--accent) !important;
+  border: 1px solid var(--accent) !important;
+  border-radius: 999px !important;
+  padding: 16px 32px !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  box-shadow: 0 4px 16px color-mix(in oklab, var(--accent) 22%, transparent);
+  transition: background 0.25s, border-color 0.25s, color 0.25s,
+    transform 0.25s, box-shadow 0.25s;
+}
+.contact a.email-button:hover {
+  background: var(--text) !important;
+  border-color: var(--text) !important;
+  color: var(--bg) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px color-mix(in oklab, var(--text) 22%, transparent);
+}
+.contact a.email-button span {
+  display: inline-block;
+  transition: transform 0.25s;
+  font-size: 18px;
+  line-height: 1;
+}
+.contact a.email-button:hover span { transform: translateX(4px); }
 .contact .toggle {
   margin-top: 32px;
   display: inline-block;
@@ -1642,6 +1669,14 @@ section {
   display: flex; flex-direction: column; gap: 2px;
   font-family: var(--font-mono);
   font-size: 13px;
+}
+.contact-aside .socials .socials-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 10px;
 }
 .contact-aside .socials a {
   color: var(--text-dim);
@@ -1976,7 +2011,13 @@ section {
   .about-block { grid-template-columns: 1fr; gap: 12px; }
   .principles { grid-template-columns: 1fr; gap: 18px; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
-  .contact-aside { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 32px; }
+  .contact-aside {
+    order: -1;
+    border-left: none;
+    padding-left: 0;
+    border-bottom: 1px solid var(--border-strong);
+    padding-bottom: 32px;
+  }
   .testi-card { grid-template-columns: 1fr; padding: 24px 22px; gap: 22px; }
   .testi-card-aside { flex-direction: row; align-items: center; gap: 16px; }
   .testi-photo { width: 72px; height: 72px; aspect-ratio: 1; }
