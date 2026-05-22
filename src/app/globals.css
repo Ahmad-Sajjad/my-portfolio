@@ -200,7 +200,7 @@ body::after {
 section {
   position: relative;
   z-index: 2;
-  padding: 72px 0 80px;
+  padding: clamp(48px, 8vw, 72px) 0 clamp(56px, 9vw, 80px);
   border-bottom: 2px solid var(--border-strong);
 }
 .wrap {
@@ -2000,16 +2000,197 @@ section {
   margin-right: 6px;
 }
 
-/* ─── responsive ────────────────────────────────────────── */
+/* ─── mobile menu (hamburger overlay) ───────────────────────
+   Trigger lives in the nav; CSS reveals it only at ≤640px
+   (`display: inline-flex` in the sm tier below). Overlay slides
+   down from the top, body scroll is locked in MobileMenu.tsx. */
+.nav-menu-toggle {
+  display: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 22px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+}
+.nav-menu-toggle span {
+  display: block;
+  height: 1.5px;
+  width: 100%;
+  background: var(--text);
+  border-radius: 2px;
+  transition: background 0.2s;
+}
+.nav-menu-toggle:hover span { background: var(--accent); }
+.nav-menu-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: var(--bg);
+  display: none;
+  flex-direction: column;
+  padding: 24px 28px 32px;
+}
+.mobile-menu.open {
+  display: flex;
+}
+.mobile-menu::before {
+  /* paper-grain echo so the overlay sits in the same visual world */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 96px 96px;
+  opacity: 0.25;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 30%, black, transparent 90%);
+}
+.mobile-menu-close {
+  position: relative;
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--text);
+  cursor: pointer;
+  align-self: flex-end;
+  display: grid;
+  place-items: center;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.mobile-menu-close:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.mobile-menu-nav {
+  position: relative;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mobile-menu-nav a {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 0;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 9vw, 44px);
+  font-weight: 350;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+  text-decoration: none;
+  font-variation-settings: "opsz" 90, "SOFT" 30;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.15s ease;
+}
+.mobile-menu-nav a::after {
+  content: "→";
+  font-family: var(--font-mono);
+  font-size: 0.45em;
+  color: var(--accent);
+  opacity: 0;
+}
+.mobile-menu-nav a:hover,
+.mobile-menu-nav a:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+.mobile-menu-nav a:hover::after,
+.mobile-menu-nav a:focus-visible::after {
+  opacity: 1;
+}
+.mobile-menu-foot {
+  position: relative;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.mobile-menu-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+  letter-spacing: 0.02em;
+}
+.mobile-menu-status .pulse {
+  position: relative;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #6BBF7A;
+}
+.mobile-menu-status .pulse::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: #6BBF7A;
+  opacity: 0.4;
+  animation: pulse 2s infinite;
+}
+.mobile-menu-email {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--border-strong);
+  padding-bottom: 4px;
+  align-self: flex-start;
+  transition: color 0.2s, border-color 0.2s;
+}
+.mobile-menu-email:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+/* Mobile menu has no enter/exit motion — nothing to disable for
+   prefers-reduced-motion. Color hover transitions are kept short
+   and are universally acceptable. */
+
+/* ─── responsive tiers ─────────────────────────────────────
+   lg: ≤1024px — desktop → tablet single-col collapse
+   md: ≤900px  — tablet/landscape phone refinements
+   sm: ≤640px  — phone (hamburger appears here)
+   xs: ≤380px  — very small phone (project rows stack)
+   ────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   :root { --gutter: 32px; }
+  .hero { padding: clamp(72px, 12vw, 96px) 0 64px; }
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
   .hero-meta { border-left: none; border-top: 1px solid var(--border); padding-top: 24px; }
   .hero-meta .meta-row { padding-left: 0; }
+  .orb { width: 380px; height: 380px; top: -120px; right: -120px; filter: blur(48px); }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-photo-wrap { position: relative; top: 0; max-width: 320px; }
   .about-block { grid-template-columns: 1fr; gap: 12px; }
-  .principles { grid-template-columns: 1fr; gap: 18px; }
+  .principles { grid-template-columns: repeat(2, 1fr); gap: 18px; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .contact-aside {
     order: -1;
@@ -2025,24 +2206,117 @@ section {
   .testi-name { font-size: 16px; }
   .testi-mark { font-size: 40px; }
   .tech-group { grid-template-columns: 1fr; gap: 14px; }
-  .svc-list { grid-template-columns: 1fr; }
+  .svc-list { grid-template-columns: repeat(2, 1fr); }
   .svc-entry { min-height: 0; padding: 22px 18px 18px; }
   .svc-entry .name { font-size: 22px; }
   .proj-item { grid-template-columns: 50px 140px 1fr; gap: 16px; padding: 16px 0; }
   .proj-item .right { display: none; }
   .proj-item .thumb { height: 70px; }
   .proj-item .name { font-size: 22px; }
-  .section-head { grid-template-columns: 1fr; gap: 16px; }
+  .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
   .section-head .meta { padding-bottom: 0; }
   .footer .row { grid-template-columns: 1fr; gap: 8px; text-align: left; }
   .footer .row > :nth-child(2), .footer .row > :nth-child(3) { text-align: left; }
 }
+
+@media (max-width: 900px) {
+  :root { --gutter: 28px; }
+  .svc-list { grid-template-columns: 1fr; }
+  .principles { grid-template-columns: 1fr; }
+  .testi-side-nav { display: none; }
+  .testi-stage { display: block; }
+  .proj-item { grid-template-columns: 44px 120px 1fr; gap: 14px; }
+  .proj-item .thumb { height: 64px; }
+  .hero h1 { font-size: clamp(34px, 7vw, 56px); }
+  .hero .sub { font-size: 15px; max-width: 50ch; }
+  .logo-strip { grid-template-columns: 1fr; gap: 12px; }
+  .cmdk-back { padding-top: 8vh; }
+}
+
 @media (max-width: 640px) {
   :root { --gutter: 24px; }
   .nav { padding: 0 20px; }
   .nav .links { display: none; }
+  .nav .status { display: none; }
+  .nav-menu-toggle { display: inline-flex; }
   .hero-marquee { display: none; }
+  .hero h1 { font-size: clamp(30px, 9vw, 44px); }
+  .orb { width: 280px; height: 280px; top: -80px; right: -80px; filter: blur(36px); opacity: 0.7; }
+  .proj-item { grid-template-columns: 36px 100px 1fr; gap: 12px; padding: 14px 0; }
+  .proj-item .thumb { height: 56px; }
+  .proj-item .name { font-size: 19px; }
+  .proj-item .stack .t { font-size: 10.5px; }
   .proj-pagination { gap: 8px; flex-wrap: wrap; }
   .proj-pagination button { padding: 6px 10px; font-size: 10.5px; }
   .proj-pagination .pages .num { min-width: 32px; }
+  .about-photo-wrap { max-width: 260px; }
+  .contact .email-row { flex-wrap: wrap; gap: 12px; }
+  .testi-photo { width: 60px; height: 60px; }
+
+  /* Hero meta → 2-col grid so 5 stacked rows compress into ~3 visual
+     rows. Dashed dividers between cells; the final cell (odd count)
+     spans both columns so we don't get a half-empty trailing row. */
+  .hero-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    padding-top: 16px;
+  }
+  .hero-meta .meta-row {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .hero-meta .meta-row:nth-child(odd) {
+    border-right: 1px dashed var(--border);
+    padding-right: 14px;
+  }
+  .hero-meta .meta-row:nth-child(even) {
+    padding-left: 14px;
+  }
+  /* Final solo cell (when total is odd) spans both columns and drops
+     the right divider. */
+  .hero-meta .meta-row:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    border-right: none;
+    padding-right: 0;
+  }
+  /* Drop trailing dashed border on the last two siblings (visual
+     bottom row), keeping the section's hard border-bottom clean. */
+  .hero-meta .meta-row:last-child,
+  .hero-meta .meta-row:nth-last-child(2):nth-child(odd) {
+    border-bottom: none;
+  }
+  .hero-meta .k { font-size: 9px; letter-spacing: 0.16em; }
+  .hero-meta .v { font-size: 11.5px; }
+
+  /* Contact aside compaction: socials become a horizontal row across
+     the top, the two .small k/v blocks sit side-by-side beneath. */
+  .contact-aside {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 14px;
+    row-gap: 18px;
+  }
+  .contact-aside .socials {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 12px;
+  }
+  .contact-aside .socials a { padding: 0; gap: 6px; }
+  .contact-aside .socials a:hover { padding-left: 0; }
+  .contact-aside .socials a .arrow { opacity: 1; }
+  .contact-aside .small { font-size: 10.5px; }
+  .contact-aside .small .k { font-size: 9px; letter-spacing: 0.16em; }
+}
+
+@media (max-width: 380px) {
+  .hero h1 { font-size: clamp(28px, 10vw, 36px); max-width: 14ch; }
+  .hero .ctas { gap: 16px; }
+  .proj-item { grid-template-columns: 1fr; gap: 10px; }
+  .proj-item .idx { display: none; }
+  .proj-item .thumb { height: 140px; width: 100%; }
+  .section-head .meta { display: none; }
+  .logo-strip-track .logo-tile { width: 96px; flex-basis: 96px; }
 }

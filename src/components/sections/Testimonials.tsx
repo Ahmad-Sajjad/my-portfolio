@@ -130,7 +130,10 @@ export function Testimonials() {
                     src={l.src}
                     alt={l.name}
                     className="logo"
+                    width={120}
+                    height={48}
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               ))}

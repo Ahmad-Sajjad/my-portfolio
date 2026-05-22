@@ -1,0 +1,12 @@
+{
+  "name": "Ahmad Sajjad — Full Stack & AI Engineer",
+  "short_name": "Ahmad Sajjad",
+  "description": "Full-stack & AI engineer building production-grade web, mobile, and AI products. Founder of Reivex.io.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "minimal-ui",
+  "background_color": "#FBFBFA",
+  "theme_color": "#FBFBFA",
+  "lang": "en",
+  "categories": ["business", "productivity", "developer"]
+}

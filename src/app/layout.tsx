@@ -85,13 +85,26 @@ export const metadata: Metadata = {
       "Full-stack & AI engineer building production-grade web, mobile, and AI products. Founder of Reivex.io.",
     url: SITE_URL,
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — Full Stack & AI Engineer`,
+        type: "image/png",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} — Full Stack & AI Engineer`,
     description:
       "Full-stack & AI engineer building production-grade web, mobile, and AI products. Founder of Reivex.io.",
+    creator: site.twitter,
+    site: site.twitter,
+    images: ["/opengraph-image"],
   },
+  manifest: "/manifest.webmanifest",
   category: "technology",
 };
 
@@ -110,6 +123,8 @@ export default function RootLayout({
       className={`${fraunces.variable} ${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable}`}
     >
       <head>
+        <link rel="me" href={site.github} />
+        <link rel="me" href={site.linkedin} />
         <JsonLd />
       </head>
       <body>{children}</body>

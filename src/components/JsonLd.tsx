@@ -1,10 +1,19 @@
 import { site } from "@/data/site";
+import { projects } from "@/data/projects";
+import { services } from "@/data/services";
+import { testimonials } from "@/data/testimonials";
 import { SITE_URL } from "@/lib/siteUrl";
 
 /**
- * Server-rendered JSON-LD for Person + ProfilePage schemas.
- * Helps search engines understand who this page is about and
- * surfaces rich results / knowledge-panel entries.
+ * Server-rendered JSON-LD for the portfolio. Multiple top-level schemas
+ * are emitted as separate <script> tags so a single bad node is rejected
+ * in isolation by validators rather than poisoning the whole graph.
+ *
+ * Person + ProfilePage are the primary "who" signals. Organization +
+ * WebSite back them with brand + site-name hints. ItemList of CreativeWork
+ * surfaces the project catalogue for rich snippets. OfferCatalog describes
+ * the freelancing services. Review nodes back the testimonials (without
+ * fabricated ratings — see note).
  */
 export function JsonLd() {
   const person = {
@@ -35,6 +44,7 @@ export function JsonLd() {
       "WordPress",
     ],
   };
+
   const profilePage = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
@@ -42,6 +52,87 @@ export function JsonLd() {
     mainEntity: person,
     url: SITE_URL,
   };
+
+  const organization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: site.company.name,
+    url: site.company.url,
+    founder: { "@type": "Person", name: site.name },
+    email: `mailto:${site.email}`,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: site.location.city,
+      addressCountry: site.location.country,
+    },
+    sameAs: [site.github, site.linkedin],
+  };
+
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: `${site.name} — Portfolio`,
+    url: SITE_URL,
+    inLanguage: "en",
+    author: { "@type": "Person", name: site.name },
+  };
+
+  const projectsList = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Selected Work",
+    itemListOrder: "https://schema.org/ItemListOrderManual",
+    numberOfItems: projects.length,
+    itemListElement: projects.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "CreativeWork",
+        name: p.name,
+        description: p.description,
+        url: p.url !== "#" ? p.url : `${SITE_URL}/#work`,
+        ...(p.image && { image: `${SITE_URL}${p.image}` }),
+        dateCreated: p.year,
+        creator: { "@type": "Person", name: site.name },
+        keywords: p.stack.join(", "),
+      },
+    })),
+  };
+
+  const serviceCatalog = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    name: "Engineering Services",
+    provider: { "@type": "Person", name: site.name },
+    itemListElement: services.map((s, i) => ({
+      "@type": "Offer",
+      position: i + 1,
+      itemOffered: {
+        "@type": "Service",
+        name: s.name,
+        description: s.description,
+        category: s.code,
+      },
+    })),
+  };
+
+  // Reviews are emitted without `reviewRating` and without `datePublished`
+  // — the source data carries no structured rating, and fabricating a
+  // 5-star value would violate Google's structured-data policy.
+  const reviews = testimonials.map((t) => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    author: {
+      "@type": "Person",
+      name: t.name,
+      ...(t.company && {
+        affiliation: { "@type": "Organization", name: t.company },
+      }),
+    },
+    reviewBody: t.quote,
+    itemReviewed: { "@type": "Person", name: site.name, url: SITE_URL },
+  }));
+
   return (
     <>
       <script
@@ -53,6 +144,29 @@ export function JsonLd() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePage) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsList) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalog) }}
+      />
+      {reviews.map((r, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }}
+        />
+      ))}
     </>
   );
 }

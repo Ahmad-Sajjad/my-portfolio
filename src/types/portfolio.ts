@@ -16,6 +16,7 @@ export type SiteIdentity = {
   email: string;
   github: string;
   linkedin: string;
+  twitter?: string;
   company: { name: string; url: string };
   location: { city: string; country: string; tz: string };
   yearsOfExperience: number;

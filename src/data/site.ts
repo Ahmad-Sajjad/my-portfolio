@@ -6,6 +6,7 @@ export const site: SiteIdentity = {
   email: "ahmad@reivex.io",
   github: "https://github.com/Ahmad-Sajjad",
   linkedin: "https://www.linkedin.com/in/ahmadsajjadofficial/",
+  twitter: "@ahmadsajjad82",
   company: { name: "Reivex Technologies", url: "https://reivex.io" },
   location: {
     city: "Lahore",
