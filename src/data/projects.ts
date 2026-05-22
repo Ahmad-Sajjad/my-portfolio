@@ -14,7 +14,7 @@ export const projects: Project[] = [
   {
     id: "powersell",
     name: "PowerSell",
-    year: "2024",
+    year: "2025",
     role: "Founding Engineer",
     description:
       "Gamified real-estate lead platform with role-based dashboards, real-time pipelines and conversion analytics.",
@@ -29,8 +29,8 @@ export const projects: Project[] = [
   },
   {
     id: "sweetreats",
-    name: "SweeTreats",
-    year: "2024",
+    name: "SweetTreats",
+    year: "2025",
     role: "Mobile Developer",
     description:
       "Cross-platform food and drink app — browse, order, and manage selections from a native iOS and Android experience.",
@@ -63,7 +63,7 @@ export const projects: Project[] = [
   {
     id: "hbd-mm",
     name: "HBD MM",
-    year: "2024",
+    year: "2026",
     role: "iOS Engineer",
     description:
       "Lifestyle + game iOS app combining everyday tracking with light gaming mechanics for engagement.",
@@ -80,7 +80,7 @@ export const projects: Project[] = [
   {
     id: "india-rare",
     name: "India Rare",
-    year: "2024",
+    year: "2026",
     role: "Product Engineer",
     description:
       "Conversion-focused e-commerce storefront for a direct-to-consumer catalog, responsive across devices.",
@@ -98,7 +98,7 @@ export const projects: Project[] = [
   {
     id: "editdeck-pro",
     name: "EditDeck Pro",
-    year: "2024",
+    year: "2025",
     role: "Founding Engineer",
     description:
       "AI SaaS for music and creative-visual generation — multi-model orchestration, integrated editor, subscriptions.",
@@ -113,7 +113,7 @@ export const projects: Project[] = [
   {
     id: "solarmax",
     name: "SolarMax",
-    year: "2024",
+    year: "2026",
     role: "E-Commerce Architect",
     description:
       "Shopify storefront for solar energy products — clear hierarchy, trust-building UX, scalable collections.",
@@ -128,7 +128,7 @@ export const projects: Project[] = [
   {
     id: "upvc-cloud",
     name: "UPVC Cloud",
-    year: "2024",
+    year: "2023",
     role: "Full-Stack Engineer",
     description:
       "Windows & doors manufacturing ERP — design-to-quotation workflows, production tracking, multi-tenant.",
@@ -178,7 +178,7 @@ export const projects: Project[] = [
   {
     id: "mac-n-sales",
     name: "Mac N Sales",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Sales platform for managing team operations, lead pipelines, and client engagement in one workspace.",
@@ -191,7 +191,7 @@ export const projects: Project[] = [
   {
     id: "chemicals-fort",
     name: "Chemicals Fort",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "B2B industrial marketplace for chemical distribution, procurement, and customer inquiry workflows.",
@@ -204,7 +204,7 @@ export const projects: Project[] = [
   {
     id: "royal-planet",
     name: "Royal Planet Tourism",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Travel & tourism booking site for a UAE-based operator — destinations, packages, inquiry flows.",
@@ -217,7 +217,7 @@ export const projects: Project[] = [
   {
     id: "stake",
     name: "Stake",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Fintech platform marketing site — investor onboarding flows, content modules, and product showcase.",
@@ -243,7 +243,7 @@ export const projects: Project[] = [
   {
     id: "seoul-luma",
     name: "Seoul Luma",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Hospitality booking site for a Korean boutique brand — rooms, venues, story-led visual design.",
@@ -256,7 +256,7 @@ export const projects: Project[] = [
   {
     id: "rao-umer",
     name: "Rao Umer",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Personal brand and portfolio site for a real-estate professional — content-heavy, SEO-tuned.",
@@ -269,7 +269,7 @@ export const projects: Project[] = [
   {
     id: "ulwa-architects",
     name: "Ulwa Architects",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Architecture studio portfolio — project gallery, services, and editorial-style content layout.",
@@ -282,7 +282,7 @@ export const projects: Project[] = [
   {
     id: "sweetreats-dashboard",
     name: "SweeTreats Dashboard",
-    year: "2024",
+    year: "2026",
     role: "Engineer",
     description:
       "Admin dashboard for the SweeTreats business — order ops, inventory, customer management.",
@@ -308,7 +308,7 @@ export const projects: Project[] = [
   {
     id: "unique-glass",
     name: "Unique Glass",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Manufacturing showcase for a glass products company — product lines, inquiry capture, dealer info.",
@@ -321,7 +321,7 @@ export const projects: Project[] = [
   {
     id: "mashpack",
     name: "Mashpack",
-    year: "2024",
+    year: "2025",
     role: "Engineer",
     description:
       "Packaging-design and procurement site for manufacturers — capabilities, gallery, quote inquiry.",
@@ -336,7 +336,7 @@ export const projects: Project[] = [
   {
     id: "buy-sell-liberia",
     name: "Buy Sell Liberia",
-    year: "2023",
+    year: "2025",
     role: "Engineer",
     description:
       "Pan-African classifieds marketplace for buying and selling goods locally.",

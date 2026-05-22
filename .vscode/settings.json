@@ -1,0 +1,11 @@
+{
+  "// — CSS linting": "Tailwind v4 uses @theme, @apply, @config, @plugin, @source, @variant — VS Code's default CSS linter doesn't know them. Silence so the lint panel isn't full of false positives.",
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+
+  "// — file associations": "Treat manifest.webmanifest as JSON for syntax highlighting + format.",
+  "files.associations": {
+    "*.webmanifest": "json"
+  }
+}

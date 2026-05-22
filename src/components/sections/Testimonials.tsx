@@ -99,6 +99,16 @@ export function Testimonials() {
         </div>
 
         <div className="testi-controls">
+          <button
+            type="button"
+            className="testi-dots-nav prev"
+            onClick={() =>
+              setI((x) => (x - 1 + testimonials.length) % testimonials.length)
+            }
+            aria-label="Previous testimonial"
+          >
+            ←
+          </button>
           <div className="testi-dots">
             {testimonials.map((_, k) => (
               <button
@@ -111,6 +121,14 @@ export function Testimonials() {
               />
             ))}
           </div>
+          <button
+            type="button"
+            className="testi-dots-nav next"
+            onClick={() => setI((x) => (x + 1) % testimonials.length)}
+            aria-label="Next testimonial"
+          >
+            →
+          </button>
         </div>
 
         <div className="logo-strip">
