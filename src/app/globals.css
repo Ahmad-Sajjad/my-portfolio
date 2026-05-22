@@ -695,6 +695,9 @@ section {
 .proj-list {
   border-top: 1px solid var(--border);
   margin-top: 8px;
+  /* When scrollIntoView is triggered by pagination, land below the
+     fixed nav, not under it. */
+  scroll-margin-top: 80px;
 }
 .proj-item {
   display: grid;
@@ -797,6 +800,57 @@ section {
   transition: gap 0.25s, color 0.2s;
 }
 .proj-item:hover .right .arrow { color: var(--accent); gap: 10px; }
+
+/* ─── projects — pagination ─────────────────────────────── */
+.proj-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.proj-pagination button {
+  appearance: none;
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-dim);
+  padding: 7px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.proj-pagination button:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--text);
+}
+.proj-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.proj-pagination .pages {
+  display: flex;
+  gap: 4px;
+}
+.proj-pagination .pages .num {
+  min-width: 38px;
+  text-align: center;
+}
+.proj-pagination .pages .num.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.proj-pagination .pages .num.active:hover {
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
 
 .proj-sentence {
   margin-top: 36px;
@@ -959,6 +1013,31 @@ section {
   position: absolute; left: 7%; right: 7%; bottom: 8%;
   font-family: var(--font-mono); font-size: 9.5px; color: var(--text-dim);
   border-top: 1px dashed var(--border); padding-top: 8px;
+}
+
+/* Generic demo placeholder */
+.mock-demo {
+  background: linear-gradient(140deg, color-mix(in oklab, var(--accent) 8%, var(--surface)), var(--surface));
+}
+.mock-demo .demo-stack {
+  position: absolute;
+  inset: 32% 11% 18%;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 9px;
+}
+.mock-demo .demo-stack .bar {
+  height: 9px;
+  background: var(--border-strong);
+  border-radius: 2px;
+}
+.mock-demo .demo-stack .bar.accent {
+  background: var(--accent);
+  opacity: 0.85;
+}
+.mock-demo[data-category="mobile"] .demo-stack { inset: 26% 26% 14%; }
+.mock-demo[data-category="ai"] .demo-stack .bar:nth-child(odd) {
+  background: color-mix(in oklab, var(--accent) 30%, var(--border-strong));
 }
 
 /* Bots mock */
@@ -1450,4 +1529,7 @@ section {
   .nav { padding: 0 20px; }
   .nav .links { display: none; }
   .hero-marquee { display: none; }
+  .proj-pagination { gap: 8px; flex-wrap: wrap; }
+  .proj-pagination button { padding: 6px 10px; font-size: 10.5px; }
+  .proj-pagination .pages .num { min-width: 32px; }
 }

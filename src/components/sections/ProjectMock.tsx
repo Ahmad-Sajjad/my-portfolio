@@ -1,7 +1,15 @@
-import type { ProjectMockId } from "@/types/portfolio";
+import type { ProjectCategory, ProjectMockId } from "@/types/portfolio";
+
+type Props = {
+  id: ProjectMockId;
+  /** Used by the generic "demo" mock to label itself. */
+  name?: string;
+  /** Used by the generic "demo" mock to pick a visual variant. */
+  category?: ProjectCategory;
+};
 
 /** Hand-drawn CSS+SVG mock screens, one per project id. */
-export function ProjectMock({ id }: { id: ProjectMockId }) {
+export function ProjectMock({ id, name, category }: Props) {
   switch (id) {
     case "powersell":
       return (
@@ -165,6 +173,33 @@ export function ProjectMock({ id }: { id: ProjectMockId }) {
                 <span className="from">{m.from}</span>
                 <span className="t">{m.t}</span>
               </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    case "demo": {
+      // Generic placeholder used by demo projects. The bar widths
+      // give a different rhythm per category so the three demos
+      // don't look identical at a glance.
+      const widths: Record<ProjectCategory, number[]> = {
+        web: [82, 56, 70, 38, 64],
+        mobile: [44, 60, 36, 70, 48],
+        ai: [70, 48, 84, 32, 60],
+      };
+      const bars = widths[category ?? "web"];
+      return (
+        <div className="mock-screen mock-demo" data-category={category}>
+          <div className="mock-grid-bg" />
+          <div className="badge">{name ?? "Demo"}</div>
+          <div className="demo-stack">
+            {bars.map((w, i) => (
+              <div
+                key={i}
+                className={`bar ${i === 3 ? "accent" : ""}`}
+                style={{ width: `${w}%` }}
+              />
             ))}
           </div>
         </div>

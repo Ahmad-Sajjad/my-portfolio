@@ -66,4 +66,47 @@ export const projects: Project[] = [
     live: true,
     category: "ai",
   },
+  // ─── demo placeholders so pagination is visible. Replace
+  // with real projects (rename `id` if you give them custom
+  // mocks; otherwise leave `id: "demo"` and they share the
+  // generic placeholder screen).
+  {
+    id: "demo",
+    name: "Nova ERP",
+    year: "2023",
+    role: "Lead Engineer",
+    description:
+      "Enterprise resource planning suite for mid-market manufacturers — finance, payroll, inventory and reporting in one workspace.",
+    url: "#",
+    stack: ["Next.js", "Node", "Postgres", "Redis"],
+    metric: "15+ companies",
+    live: true,
+    category: "web",
+  },
+  {
+    id: "demo",
+    name: "Pulse Mobile",
+    year: "2024",
+    role: "iOS Lead",
+    description:
+      "Health-tracking iOS app with on-device summaries, HealthKit sync and weekly insights — built for a fitness studio chain.",
+    url: "#",
+    stack: ["Swift", "SwiftUI", "HealthKit"],
+    metric: "Beta",
+    live: false,
+    category: "mobile",
+  },
+  {
+    id: "demo",
+    name: "Atlas Vision",
+    year: "2024",
+    role: "AI Engineer",
+    description:
+      "Computer-vision pipeline that turns warehouse camera feeds into real-time pick-and-pack telemetry, with anomaly alerts.",
+    url: "#",
+    stack: ["Python", "OpenCV", "PyTorch", "FastAPI"],
+    metric: "Pilot · 3 sites",
+    live: true,
+    category: "ai",
+  },
 ];

@@ -57,7 +57,8 @@ export type ProjectMockId =
   | "okasha"
   | "hbd-mm"
   | "reivex-agents"
-  | "automation";
+  | "automation"
+  | "demo";
 
 export type ProjectCategory = "web" | "mobile" | "ai";
 
