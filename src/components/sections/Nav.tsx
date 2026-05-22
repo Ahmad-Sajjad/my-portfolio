@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { site } from "@/data/site";
 import { navLinks } from "@/data/nav";
-import { ThemeToggle } from "@/components/ThemeProvider";
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
@@ -37,7 +36,6 @@ export function Nav() {
           role="presentation"
         />
         <span>available for work</span>
-        <ThemeToggle />
       </div>
     </nav>
   );

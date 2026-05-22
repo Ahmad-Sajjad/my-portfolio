@@ -1,47 +1,80 @@
 import type { SkillGroup } from "@/types/portfolio";
 
 /**
- * Three groups, ~24 chips total. `years` is a 1–4 tier that drives
- * styling (tier-4 is accent-tinted, tier-1 is dimmed).
+ * Six groups, ~40 chips total. Mirrors Ahmad's logo grid:
+ * Languages / Frontend / Backend / Databases / AI · ML / Tools.
  */
 export const skillGroups: SkillGroup[] = [
   {
+    label: "Languages",
+    items: [
+      { name: "TypeScript" },
+      { name: "JavaScript" },
+      { name: "Python" },
+      { name: "C" },
+      { name: "C++" },
+      { name: "C#" },
+      { name: "Java" },
+      { name: "Kotlin" },
+    ],
+  },
+  {
     label: "Frontend",
     items: [
-      { name: "React", years: 4 },
-      { name: "Next.js", years: 3 },
-      { name: "TypeScript", years: 4 },
-      { name: "Tailwind", years: 3 },
-      { name: "React Native", years: 2 },
-      { name: "SwiftUI", years: 1 },
-      { name: "Framer Motion", years: 2 },
+      { name: "React" },
+      { name: "Next.js" },
+      { name: "Tailwind" },
+      { name: "Three.js" },
+      { name: "HTML5" },
+      { name: "CSS3" },
+      { name: "Material UI" },
     ],
   },
   {
-    label: "Backend & Infra",
+    label: "Backend",
     items: [
-      { name: "Node", years: 4 },
-      { name: "Python", years: 3 },
-      { name: "FastAPI", years: 2 },
-      { name: "Postgres", years: 3 },
-      { name: "MongoDB", years: 2 },
-      { name: "Redis", years: 2 },
-      { name: "AWS", years: 2 },
-      { name: "Docker", years: 2 },
-      { name: "Vercel", years: 3 },
-      { name: "Supabase", years: 2 },
+      { name: "Node.js" },
+      { name: "NestJS" },
+      { name: "Express" },
+      { name: "FastAPI" },
     ],
   },
   {
-    label: "AI · Commerce · CMS",
+    label: "Databases",
     items: [
-      { name: "OpenAI", years: 2 },
-      { name: "LangChain", years: 1 },
-      { name: "LangGraph", years: 1 },
-      { name: "Hugging Face", years: 1 },
-      { name: "Shopify", years: 3 },
-      { name: "WordPress", years: 3 },
-      { name: "WooCommerce", years: 2 },
+      { name: "PostgreSQL" },
+      { name: "MySQL" },
+      { name: "SQLite" },
+      { name: "MongoDB" },
+      { name: "Redis" },
+      { name: "Firebase" },
+      { name: "Supabase" },
+      { name: "Prisma" },
+    ],
+  },
+  {
+    label: "AI · ML",
+    items: [
+      { name: "TensorFlow" },
+      { name: "PyTorch" },
+      { name: "scikit-learn" },
+      { name: "OpenCV" },
+      { name: "LangChain" },
+      { name: "LangGraph" },
+      { name: "Hugging Face" }
+    ],
+  },
+  {
+    label: "Tools & Platforms",
+    items: [
+      { name: "Git" },
+      { name: "GitHub" },
+      { name: "Docker" },
+      { name: "Vercel" },
+      { name: "VS Code" },
+      { name: "Linux" },
+      { name: "Figma" },
+      { name: "Android Studio" },
     ],
   },
 ];

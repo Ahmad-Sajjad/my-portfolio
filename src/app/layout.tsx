@@ -96,24 +96,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FBFBFA" },
-    { media: "(prefers-color-scheme: dark)", color: "#0C0C0C" },
-  ],
+  themeColor: "#FBFBFA",
   width: "device-width",
   initialScale: 1,
 };
-
-// Runs synchronously before React hydrates — restores the user's saved
-// theme so there's no flash from `dark` → `light` on light-mode users.
-const themeBootScript = `
-try {
-  var t = localStorage.getItem('theme');
-  if (t === 'light' || t === 'dark') {
-    document.documentElement.setAttribute('data-theme', t);
-  }
-} catch (e) {}
-`;
 
 export default function RootLayout({
   children,
@@ -121,11 +107,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="light"
       className={`${fraunces.variable} ${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
         <JsonLd />
       </head>
       <body>{children}</body>

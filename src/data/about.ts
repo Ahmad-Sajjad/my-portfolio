@@ -13,15 +13,15 @@ export const about: AboutContent = {
             "I've been building production systems for three years and haven't stopped.",
         },
         " Today I run ",
-        { strong: "Reivex.io" },
+        { strong: "Reivex Technologies" },
         " — a studio that ships web, mobile, enterprise, and AI-powered products that real teams depend on daily.",
       ],
     },
     {
       label: "02. Approach",
       body: [
-        { strong: 'Most "building" is really scoping.' },
-        " I take ideas from first conversation to shipped product — clarifying requirements, designing architecture, writing code, and hitting the deadline. The work is maintainable by whoever comes after me.",
+        { strong: 'Most building is really scoping.' },
+        " I take ideas from first conversation to shipped product clarifying requirements, designing architecture, writing code, and hitting the deadline. The work is maintainable by whoever comes after me.",
       ],
     },
     {

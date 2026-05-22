@@ -23,21 +23,20 @@
   --font-mono: var(--font-mono);
 }
 
-/* ─── design tokens ──────────────────────────────────────── */
+/* ─── design tokens (light only) ─────────────────────────── */
 :root {
-  /* Refined neutral — works in light & dark */
-  --bg: #0C0C0C;
-  --surface: #161616;
-  --surface-2: #1C1C1C;
-  --text: #F2F2F2;
-  --text-dim: #828282;
-  --text-faint: #454545;
-  --border: #232323;
-  --border-strong: #303030;
+  --bg: #FBFBFA;
+  --surface: #F4F4F2;
+  --surface-2: #ECECEA;
+  --text: #0C0C0C;
+  --text-dim: #6B6B69;
+  --text-faint: #B0B0AE;
+  --border: #E5E5E2;
+  --border-strong: #D0D0CD;
 
-  --accent: #F97316;
-  --accent-warm: #F2F2F2;
-  --accent-ink: #0C0C0C;
+  --accent: #EA580C;
+  --accent-warm: #0C0C0C;
+  --accent-ink: #FBFBFA;
 
   /* Font stacks chain the next/font-loaded CSS variable first,
      then a same-name fallback (for offline/dev), then ui- and
@@ -51,20 +50,6 @@
 
   --wrap: 1280px;
   --gutter: 48px;
-}
-
-[data-theme="light"] {
-  --bg: #FBFBFA;
-  --surface: #F4F4F2;
-  --surface-2: #ECECEA;
-  --text: #0C0C0C;
-  --text-dim: #6B6B69;
-  --text-faint: #B0B0AE;
-  --border: #E5E5E2;
-  --border-strong: #D0D0CD;
-  --accent: #EA580C;
-  --accent-warm: #0C0C0C;
-  --accent-ink: #FBFBFA;
 }
 
 * { box-sizing: border-box; }
@@ -205,59 +190,6 @@ body::after {
   100% { transform: scale(0.8); opacity: 0; }
 }
 
-/* ─── theme transitions ─────────────────────────────────── */
-/* Class is added by ThemeProvider for ~500ms during a manual toggle,
-   then removed. Browsers with View Transitions API handle the animation
-   themselves and never see this class. */
-html.theme-animating,
-html.theme-animating *,
-html.theme-animating *::before,
-html.theme-animating *::after {
-  transition-property: background-color, border-color, color, fill, stroke,
-    box-shadow, -webkit-text-stroke-color !important;
-  transition-duration: 0.4s !important;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
-}
-
-/* View Transitions API — modern browsers (Chrome/Edge/Safari). */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.45s;
-  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-  }
-}
-
-/* nav theme toggle */
-.theme-toggle {
-  appearance: none;
-  background: var(--surface);
-  border: 1px solid var(--border-strong);
-  color: var(--text);
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: grid; place-items: center;
-  line-height: 1;
-  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
-  margin-left: 4px;
-}
-.theme-toggle svg {
-  width: 18px;
-  height: 18px;
-  display: block;
-}
-.theme-toggle:hover {
-  color: var(--accent-ink);
-  background: var(--accent);
-  border-color: var(--accent);
-  transform: rotate(20deg);
-}
 
 /* ─── shared layout ─────────────────────────────────────── */
 section {
@@ -631,91 +563,92 @@ section {
   font-variation-settings: "opsz" 30, "SOFT" 30;
 }
 
-/* ─── services — 3-col grid (compact, all visible) ─────── */
-.svc-grid {
+/* ─── services — bordered 3-col grid with accent stripe ─── */
+.svc-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  border-top: 1px solid var(--border);
-  border-left: 1px solid var(--border);
+  border-top: 1px solid var(--border-strong);
+  border-left: 1px solid var(--border-strong);
 }
-.svc-card {
-  border-right: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 22px 24px;
+.svc-entry {
+  border-right: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
+  padding: 28px 24px 24px;
   display: flex; flex-direction: column;
   gap: 12px;
-  background: transparent;
-  transition: background 0.3s;
-  cursor: default;
   position: relative;
+  transition: background 0.3s;
+  min-height: 260px;
 }
-.svc-card:hover { background: color-mix(in oklab, var(--accent) 5%, transparent); }
-.svc-card .top {
+.svc-entry:hover {
+  background: color-mix(in oklab, var(--accent) 5%, transparent);
+}
+.svc-entry::before {
+  content: "";
+  position: absolute;
+  top: -1px; left: -1px;
+  width: 36px; height: 2px;
+  background: var(--accent);
+  opacity: 0.45;
+  transition: width 0.35s cubic-bezier(.2,.7,.2,1), opacity 0.25s;
+}
+.svc-entry:hover::before { width: 90px; opacity: 1; }
+
+.svc-entry .head {
   display: flex; align-items: baseline; justify-content: space-between;
-  gap: 14px;
+  gap: 10px;
 }
-.svc-card .num {
+.svc-entry .num {
   font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.16em;
+  font-size: 11px;
+  letter-spacing: 0.18em;
   color: var(--text-faint);
 }
-.svc-card:hover .num { color: var(--accent); }
-.svc-card .pill {
+.svc-entry:hover .num { color: var(--accent); }
+.svc-entry .code {
   font-family: var(--font-mono);
   font-size: 9.5px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--text-dim);
+  color: var(--text-faint);
   padding: 3px 8px;
   border: 1px solid var(--border-strong);
   border-radius: 3px;
 }
-.svc-card .name {
+.svc-entry .name {
   font-family: var(--font-serif);
   font-size: 26px;
   font-weight: 350;
   letter-spacing: -0.02em;
-  line-height: 1.05;
+  line-height: 1.1;
   color: var(--text);
   font-variation-settings: "opsz" 60, "SOFT" 30;
   margin-top: 2px;
 }
-.svc-card .tag {
-  font-size: 12.5px;
+.svc-entry .tag {
+  font-size: 13px;
   color: var(--text-dim);
   line-height: 1.5;
   margin: 0;
 }
-.svc-card ul {
-  list-style: none;
-  margin: 0; padding: 0;
-  display: flex; flex-direction: column; gap: 5px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text);
-}
-.svc-card ul li {
-  display: flex; gap: 8px; align-items: baseline;
-  letter-spacing: 0.02em;
-}
-.svc-card ul li::before {
-  content: "·";
-  color: var(--accent);
-  font-weight: 700;
-}
-.svc-card .foot {
+.svc-entry .items {
   margin-top: auto;
-  padding-top: 10px;
-  border-top: 1px dashed var(--border);
-  display: flex; justify-content: space-between; align-items: baseline;
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.02em;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-strong);
+  display: flex; flex-wrap: wrap; gap: 6px;
 }
-.svc-card .foot .time { color: var(--text-dim); }
-.svc-card .foot .price { color: var(--text); }
+.svc-entry .items .chip {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  color: var(--text-dim);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 4px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+  transition: color 0.2s, border-color 0.2s;
+}
+.svc-entry:hover .items .chip { border-color: var(--border-strong); }
 
 /* ─── projects — filter pills + editorial list rows ────── */
 .proj-filters {
@@ -1172,7 +1105,7 @@ section {
 }
 .tech-group {
   display: grid;
-  grid-template-columns: 200px 1fr 60px;
+  grid-template-columns: 200px 1fr;
   gap: 32px;
   align-items: start;
   padding: 28px 0;
@@ -1215,29 +1148,6 @@ section {
   border-color: var(--accent);
   transform: translateY(-2px);
 }
-.tech-group .chip .yr {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--text-faint);
-  letter-spacing: 0.04em;
-  font-weight: 400;
-  transition: color 0.2s;
-}
-.tech-group .chip:hover .yr { color: color-mix(in oklab, var(--accent-ink) 80%, transparent); }
-.tech-group .chip.tier-4 { background: color-mix(in oklab, var(--accent) 14%, var(--surface)); border-color: color-mix(in oklab, var(--accent) 40%, var(--border-strong)); }
-.tech-group .chip.tier-4 .yr { color: var(--accent); }
-.tech-group .chip.tier-1 { color: var(--text-dim); }
-.tech-group .count {
-  font-family: var(--font-mono);
-  font-size: 22px;
-  font-weight: 350;
-  color: var(--text-faint);
-  text-align: right;
-  font-variation-settings: "opsz" 30;
-  font-family: var(--font-serif);
-  padding-top: 4px;
-}
-
 .tech-sentence {
   text-align: center;
   font-family: var(--font-serif);
@@ -1523,8 +1433,9 @@ section {
   .testi-wrap { grid-template-columns: 1fr; padding: 32px; gap: 24px; text-align: left; }
   .testi-avatar { width: 92px; height: 92px; font-size: 34px; }
   .tech-group { grid-template-columns: 1fr; gap: 14px; }
-  .tech-group .count { display: none; }
-  .svc-grid { grid-template-columns: 1fr; }
+  .svc-list { grid-template-columns: 1fr; }
+  .svc-entry { min-height: 0; padding: 22px 18px 18px; }
+  .svc-entry .name { font-size: 22px; }
   .proj-item { grid-template-columns: 50px 140px 1fr; gap: 16px; padding: 16px 0; }
   .proj-item .right { display: none; }
   .proj-item .thumb { height: 70px; }

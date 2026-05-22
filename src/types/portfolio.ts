@@ -45,11 +45,11 @@ export type AboutContent = {
 
 export type Service = {
   name: string;
+  /** Short uppercase code shown in the cell header (e.g. "WEB", "iOS"). */
+  code: string;
   tag: string;
   description: string;
   includes: string[];
-  timeline: string;
-  from: string;
 };
 
 export type ProjectMockId =
@@ -86,7 +86,7 @@ export type Testimonial = {
 /** Years tier for tech chips: 1 (dim) … 4 (accent-tinted). */
 export type SkillTier = 1 | 2 | 3 | 4;
 
-export type Skill = { name: string; years: SkillTier };
+export type Skill = { name: string;};
 
 export type SkillGroup = { label: string; items: Skill[] };
 

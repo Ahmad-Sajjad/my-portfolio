@@ -12,8 +12,8 @@ export default function OpengraphImage() {
         style={{
           width: "100%",
           height: "100%",
-          background: "#0C0C0C",
-          color: "#F2F2F2",
+          background: "#FBFBFA",
+          color: "#0C0C0C",
           padding: 80,
           position: "relative",
           display: "flex",
@@ -26,7 +26,7 @@ export default function OpengraphImage() {
           style={{
             position: "absolute",
             inset: 80,
-            border: "2px solid #232323",
+            border: "2px solid #D0D0CD",
             display: "flex",
           }}
         />
@@ -37,8 +37,8 @@ export default function OpengraphImage() {
             right: 180,
             width: 160,
             height: 160,
-            background: "#F97316",
-            opacity: 0.75,
+            background: "#EA580C",
+            opacity: 0.7,
             borderRadius: 999,
             display: "flex",
             filter: "blur(2px)",
@@ -49,7 +49,7 @@ export default function OpengraphImage() {
             style={{
               fontSize: 28,
               fontFamily: "monospace",
-              color: "#828282",
+              color: "#6B6B69",
               letterSpacing: 6,
               textTransform: "uppercase",
               display: "flex",
@@ -72,7 +72,7 @@ export default function OpengraphImage() {
             AS
             <span
               style={{
-                color: "#F97316",
+                color: "#EA580C",
                 fontStyle: "italic",
                 display: "flex",
               }}
@@ -84,7 +84,7 @@ export default function OpengraphImage() {
             style={{
               fontSize: 28,
               fontFamily: "monospace",
-              color: "#828282",
+              color: "#6B6B69",
               letterSpacing: 4,
               textTransform: "uppercase",
               display: "flex",
