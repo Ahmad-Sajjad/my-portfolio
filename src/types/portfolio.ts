@@ -52,27 +52,35 @@ export type Service = {
   includes: string[];
 };
 
-export type ProjectMockId =
-  | "powersell"
-  | "okasha"
-  | "hbd-mm"
-  | "reivex-agents"
-  | "automation"
-  | "demo";
-
 export type ProjectCategory = "web" | "mobile" | "ai";
 
+export type ProjectStatus = "active" | "archived";
+
 export type Project = {
-  id: ProjectMockId;
+  /** Slug, used as React key + as the basename of the screenshot file. */
+  id: string;
   name: string;
   year: string;
   role: string;
+  /** Short one-liner shown in the editorial row. */
   description: string;
+  /** Optional longer copy shown in the read-more modal; falls back to `description`. */
+  longDescription?: string;
+  /** Path to the hero screenshot under /projects/. Omit for projects with no
+   *  screenshot available — the thumb renders a CSS-only placeholder. */
+  image?: string;
+  /** Live URL, or "#" if the project has no public link. */
   url: string;
   stack: string[];
-  metric: string;
-  live: boolean;
+  /** Optional right-column text shown when there's no live URL (e.g. "App Store"). */
+  metric?: string;
   category: ProjectCategory;
+  /** Highlighted in the first page of the list. */
+  featured?: boolean;
+  /** "archived" hides the visit link and shows an archived badge instead. */
+  status?: ProjectStatus;
+  /** Mobile apps: ["iOS"] / ["iOS", "Android"]. */
+  platforms?: string[];
 };
 
 export type Testimonial = {

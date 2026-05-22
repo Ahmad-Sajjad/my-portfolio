@@ -1,5 +1,6 @@
 import { ScrollProgress } from "@/components/ScrollProgress";
 import { CommandPalette } from "@/components/CommandPalette";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import { Nav } from "@/components/sections/Nav";
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
@@ -13,6 +14,7 @@ import { Footer } from "@/components/sections/Footer";
 export default function Home() {
   return (
     <>
+      <SmoothScroll />
       <ScrollProgress />
       <Nav />
       <Hero />

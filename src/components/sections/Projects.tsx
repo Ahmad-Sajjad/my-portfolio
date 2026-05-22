@@ -2,8 +2,9 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { projects } from "@/data/projects";
-import type { ProjectCategory } from "@/types/portfolio";
+import type { Project, ProjectCategory } from "@/types/portfolio";
 import { ProjectMock } from "./ProjectMock";
+import { ProjectModal } from "./ProjectModal";
 
 type FilterValue = "all" | ProjectCategory;
 
@@ -20,6 +21,7 @@ const PAGE_SIZE = 5;
 export function Projects() {
   const [filter, setFilter] = useState<FilterValue>("all");
   const [page, setPage] = useState(1);
+  const [openProject, setOpenProject] = useState<Project | null>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
 
@@ -79,20 +81,32 @@ export function Projects() {
           </div>
         </div>
 
-        <div className="proj-list" ref={listRef}>
+        <div
+          className="proj-list"
+          ref={listRef}
+          key={`${filter}-${safePage}`}
+        >
           {visible.map((p, i) => (
-            <a
+            <div
               key={p.name}
               className="proj-item"
-              href={p.url}
-              target={p.url.startsWith("http") ? "_blank" : undefined}
-              rel={p.url.startsWith("http") ? "noopener noreferrer" : undefined}
+              role="button"
+              tabIndex={0}
+              onClick={() => setOpenProject(p)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setOpenProject(p);
+                }
+              }}
+              aria-label={`Read more about ${p.name}`}
+              style={{ animationDelay: `${i * 60}ms` }}
             >
               <div className="idx">
                 {String(start + i + 1).padStart(2, "0")}
               </div>
               <div className="thumb">
-                <ProjectMock id={p.id} name={p.name} category={p.category} />
+                <ProjectMock image={p.image} name={p.name} />
               </div>
               <div className="body">
                 <div className="name-row">
@@ -111,19 +125,27 @@ export function Projects() {
                 </div>
               </div>
               <div className="right">
-                {p.live ? (
-                  <span className="live">
-                    <span className="d" aria-hidden />
-                    live
-                  </span>
+                {p.status === "archived" ? (
+                  <span className="archived-badge">archived</span>
+                ) : p.url !== "#" ? (
+                  <a
+                    className="visit-link"
+                    href={p.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    aria-label={`Visit ${p.name}`}
+                  >
+                    visit <span aria-hidden>↗</span>
+                  </a>
                 ) : (
-                  <span style={{ color: "var(--text-faint)" }}>{p.metric}</span>
+                  <span className="metric">{p.metric}</span>
                 )}
-                <span className="arrow">
-                  visit <span aria-hidden>→</span>
+                <span className="read-more-label" aria-hidden>
+                  read more <span>→</span>
                 </span>
               </div>
-            </a>
+            </div>
           ))}
         </div>
 
@@ -170,6 +192,11 @@ export function Projects() {
           experiments/.
         </p>
       </div>
+
+      <ProjectModal
+        project={openProject}
+        onClose={() => setOpenProject(null)}
+      />
     </section>
   );
 }

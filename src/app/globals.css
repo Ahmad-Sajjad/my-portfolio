@@ -55,13 +55,18 @@
 * { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;
+  /* Lenis handles smooth scrolling. Native scroll-behavior is off
+     so it doesn't fight with the JS-driven scroll. Anchor offsets
+     still need scroll-padding-top so target sections land below
+     the fixed nav. */
   scroll-padding-top: 80px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-}
+/* Lenis lifecycle classes — prevent unwanted scroll snapping. */
+html.lenis, html.lenis body { height: auto; }
+html.lenis-smooth { scroll-behavior: auto !important; }
+html.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+html.lenis-stopped { overflow: clip; }
 
 html, body {
   margin: 0; padding: 0;
@@ -706,10 +711,25 @@ section {
   align-items: center;
   padding: 18px 0;
   border-bottom: 1px solid var(--border);
-  text-decoration: none;
+  background: transparent;
   color: inherit;
+  cursor: pointer;
   transition: padding 0.3s, background 0.3s;
   position: relative;
+  /* Entrance: staggered via inline animationDelay set by Projects.tsx.
+     `both` keeps the final state so items don't snap back. */
+  animation: projItemIn 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.proj-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+@keyframes projItemIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .proj-item { animation: none; }
 }
 .proj-item:hover { padding-left: 12px; padding-right: 12px; background: color-mix(in oklab, var(--accent) 4%, transparent); }
 .proj-item .idx {
@@ -726,6 +746,11 @@ section {
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--surface);
+}
+/* When next/image fill is used, the underlying <img> spans the container. */
+.proj-item .thumb img,
+.proj-modal-thumb img {
+  display: block;
 }
 .proj-item .body {
   display: flex; flex-direction: column; gap: 6px;
@@ -774,7 +799,11 @@ section {
 .proj-item .stack .t::after { content: "·"; color: var(--text-faint); margin: 0 8px; }
 .proj-item .stack .t:last-child::after { content: ""; }
 .proj-item .right {
-  display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6px;
   font-family: var(--font-mono);
   font-size: 11px;
   letter-spacing: 0.04em;
@@ -782,24 +811,51 @@ section {
   color: var(--text-dim);
   white-space: nowrap;
 }
-.proj-item .right .live {
-  display: inline-flex; align-items: center; gap: 5px;
-  color: #8FCB9B;
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-.proj-item .right .live .d {
-  width: 5px; height: 5px; border-radius: 50%;
-  background: #8FCB9B;
-  box-shadow: 0 0 8px rgba(143, 203, 155, 0.6);
-}
-.proj-item .right .arrow {
+.proj-item .right .visit-link {
   display: inline-flex; align-items: center; gap: 6px;
   color: var(--text);
-  transition: gap 0.25s, color 0.2s;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: color 0.2s, gap 0.25s, border-color 0.2s;
 }
-.proj-item:hover .right .arrow { color: var(--accent); gap: 10px; }
+.proj-item .right .visit-link:hover {
+  color: var(--accent);
+  gap: 10px;
+  border-bottom-color: var(--accent);
+}
+.proj-item .right .metric {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-faint);
+  letter-spacing: 0.04em;
+}
+.proj-item .right .archived-badge {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 3px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+}
+.proj-item .right .read-more-label {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: color 0.2s, gap 0.25s;
+}
+.proj-item .right .read-more-label:hover {
+  color: var(--accent);
+  gap: 10px;
+}
 
 /* ─── projects — pagination ─────────────────────────────── */
 .proj-pagination {
@@ -1013,6 +1069,32 @@ section {
   position: absolute; left: 7%; right: 7%; bottom: 8%;
   font-family: var(--font-mono); font-size: 9.5px; color: var(--text-dim);
   border-top: 1px dashed var(--border); padding-top: 8px;
+}
+
+/* CSS-only placeholder for projects without a hero screenshot. */
+.mock-fallback {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(140deg, color-mix(in oklab, var(--accent) 6%, var(--surface)), var(--surface));
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.mock-fallback .mock-grid-bg {
+  position: absolute; inset: 0;
+  opacity: 0.4;
+}
+.mock-fallback-name {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-serif);
+  font-size: clamp(14px, 1.8vw, 22px);
+  font-weight: 350;
+  letter-spacing: -0.02em;
+  color: var(--text-dim);
+  text-align: center;
+  padding: 0 16px;
+  font-variation-settings: "opsz" 60;
 }
 
 /* Generic demo placeholder */
@@ -1426,6 +1508,188 @@ section {
   display: inline-flex; align-items: center; gap: 6px;
 }
 .footer .row a:hover { color: var(--accent); }
+
+/* ─── project read-more modal ───────────────────────────── */
+.proj-modal-back {
+  position: fixed;
+  inset: 0;
+  background: color-mix(in oklab, var(--bg) 65%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1500;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.proj-modal-back.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.proj-modal {
+  width: min(880px, 100%);
+  max-height: calc(100vh - 48px);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  overflow: auto;
+  position: relative;
+  transform: translateY(12px) scale(0.985);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(.2,.7,.2,1), opacity 0.25s;
+}
+.proj-modal-back.open .proj-modal {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.proj-modal-close {
+  position: absolute;
+  top: 14px; right: 14px;
+  z-index: 2;
+  appearance: none;
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid; place-items: center;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.proj-modal-close:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+.proj-modal-close svg { width: 14px; height: 14px; display: block; }
+
+.proj-modal-thumb {
+  position: relative;
+  aspect-ratio: 21 / 10;
+  border-bottom: 1px solid var(--border-strong);
+  overflow: hidden;
+  background: var(--surface);
+}
+.proj-modal-thumb img {
+  width: 100%;
+  height: 100%;
+}
+
+.proj-modal-body {
+  padding: 32px 40px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.proj-modal-meta {
+  display: flex; flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--text-dim);
+}
+.proj-modal-meta .dot { color: var(--text-faint); }
+.proj-modal-meta .cat { color: var(--accent); }
+.proj-modal-meta .live {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: #5BA86B;
+  letter-spacing: 0.12em;
+}
+.proj-modal-meta .live .d {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #5BA86B;
+  box-shadow: 0 0 8px rgba(91, 168, 107, 0.6);
+}
+.proj-modal-meta .archived {
+  color: var(--text-faint);
+  letter-spacing: 0.16em;
+}
+.proj-modal-title {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.4vw, 42px);
+  font-weight: 350;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
+  margin: 0;
+  color: var(--text);
+  font-variation-settings: "opsz" 90, "SOFT" 30;
+}
+.proj-modal-desc {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  line-height: 1.55;
+  font-weight: 350;
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 64ch;
+  letter-spacing: -0.005em;
+  font-variation-settings: "opsz" 30, "SOFT" 30;
+}
+.proj-modal-stack {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 4px;
+}
+.proj-modal-stack .chip {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 5px 9px;
+  border-radius: 3px;
+  letter-spacing: 0.02em;
+}
+.proj-modal-foot {
+  margin-top: 14px;
+  padding-top: 18px;
+  border-top: 1px dashed var(--border-strong);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.proj-modal-foot .visit {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 350;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 4px;
+  letter-spacing: -0.01em;
+  transition: color 0.2s, border-color 0.2s, gap 0.25s;
+  display: inline-flex; align-items: baseline; gap: 8px;
+}
+.proj-modal-foot .visit:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  gap: 14px;
+}
+.proj-modal-foot .visit.muted {
+  color: var(--text-faint);
+  border-color: transparent;
+  font-size: 14px;
+  font-family: var(--font-mono);
+  cursor: default;
+}
+.proj-modal-foot .modal-hint {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+@media (max-width: 640px) {
+  .proj-modal-body { padding: 24px 22px 28px; }
+  .proj-modal-thumb { aspect-ratio: 16 / 10; }
+  .proj-modal-foot { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .proj-modal-foot .visit { font-size: 18px; }
+}
 
 /* ─── command palette ───────────────────────────────────── */
 .cmdk-back {
