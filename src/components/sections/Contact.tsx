@@ -150,13 +150,9 @@ export function Contact() {
               <span className="k">Response time</span>
               {contactMeta.responseTime}
             </div>
-            <div className="small">
-              <span className="k">Currently</span>
-              {contactMeta.capacity}
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 }

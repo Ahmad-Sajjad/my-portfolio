@@ -1173,11 +1173,13 @@ section {
 
 /* ─── testimonials — featured card ─────────────────────── */
 .testi-stage {
-  max-width: 960px;
+  /* Stretch into the full content area; arrows on either side of the
+     wider card. The wrap (1280px) - gutters already constrains overall. */
+  width: 100%;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 28px;
 }
 .testi-side-nav {
   flex-shrink: 0;
@@ -1323,14 +1325,14 @@ section {
 }
 .testi-quote {
   font-family: var(--font-serif);
-  font-size: clamp(15px, 1.3vw, 17px);
+  font-size: clamp(18px, 1.7vw, 23px);
   font-weight: 350;
   line-height: 1.55;
   letter-spacing: -0.005em;
   color: var(--text);
   margin: 0;
-  max-width: 56ch;
-  font-variation-settings: "opsz" 30, "SOFT" 30;
+  max-width: 64ch;
+  font-variation-settings: "opsz" 40, "SOFT" 30;
   text-wrap: pretty;
 }
 .testi-card-foot {
@@ -1539,7 +1541,7 @@ section {
   grid-template-columns: 1fr 240px;
   gap: 80px;
   width: 100%;
-  align-items: end;
+  align-items: start;
 }
 .contact h2 {
   font-family: var(--font-serif);

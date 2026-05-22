@@ -19,7 +19,7 @@ export const testimonials: Testimonial[] = [
     name: "Paige Nguyen",
     company: "Wordle MM",
     quote:
-      "Thanks team for a fun experience and exceptional communication throughout the project — consistently transparent, proactive, and always prepared to meet and align. The process was much more efficient than expected.",
+      "Thanks team for a fun experience and exceptional communication throughout the project. Consistently transparent, proactive, and always prepared to meet and align. The process was much more efficient than expected.",
     image: "/testimonials/paige-nguyen.png",
   },
   {
@@ -27,7 +27,7 @@ export const testimonials: Testimonial[] = [
     name: "Henry Milky Brown",
     company: "BuySell Liberia",
     quote:
-      "Team did a super awesome job bringing BuySell Liberia to life — professional, creative, and truly dedicated to making every detail perfect. The result was beyond what I imagined. 100% recommend him for anyone looking for quality, innovation, and real results.",
+      "Team did a super awesome job bringing BuySell Liberia to life. Professional, creative, and truly dedicated to making every detail perfect. The result was beyond what I imagined. 100% recommend him for anyone looking for quality, innovation, and real results.",
     image: "/testimonials/henry-milky-brown.png",
   },
   {

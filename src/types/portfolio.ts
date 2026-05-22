@@ -17,7 +17,7 @@ export type SiteIdentity = {
   github: string;
   linkedin: string;
   company: { name: string; url: string };
-  location: { city: string; country: string; countryCode: string; tz: string };
+  location: { city: string; country: string; tz: string };
   yearsOfExperience: number;
 };
 
@@ -106,5 +106,4 @@ export type SkillGroup = { label: string; items: Skill[] };
 
 export type ContactMeta = {
   responseTime: string;
-  capacity: string;
 };

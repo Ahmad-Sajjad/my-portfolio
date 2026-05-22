@@ -64,7 +64,7 @@ export function Hero() {
             <div className="meta-row">
               <span className="k">Based in</span>
               <span className="v">
-                {site.location.city}, {site.location.countryCode} · PKT
+                {site.location.city}, · PKT
               </span>
             </div>
             <div className="meta-row">
