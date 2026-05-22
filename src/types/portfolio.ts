@@ -84,12 +84,17 @@ export type Project = {
 };
 
 export type Testimonial = {
+  /** Single-letter fallback shown when `image` is absent. */
   initial: string;
   quote: string;
   name: string;
-  role: string;
+  /** Optional role line ("CEO", "Founder", etc.). */
+  role?: string;
   company: string;
-  link: string;
+  /** Optional path to a profile photo under /testimonials/. */
+  image?: string;
+  /** Optional URL used by the "verify ↗" link in the attribution row. */
+  link?: string;
 };
 
 /** Years tier for tech chips: 1 (dim) … 4 (accent-tinted). */

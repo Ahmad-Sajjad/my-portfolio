@@ -92,22 +92,6 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="hero-marquee" aria-hidden>
-        <div className="track">
-          {[0, 1].map((dup) => (
-            <span
-              key={dup}
-              style={{ display: "inline-flex", gap: 56, paddingRight: 56 }}
-            >
-              {hero.marqueeWords.map((w) => (
-                <span key={w}>
-                  <span className="star">✦</span> {w}
-                </span>
-              ))}
-            </span>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

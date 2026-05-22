@@ -280,25 +280,13 @@ export const projects: Project[] = [
     category: "web",
   },
   {
-    id: "ieat",
-    name: "iEat",
-    year: "2024",
-    role: "Engineer",
-    description:
-      "Food & beverage ordering platform — menus, online ordering, integration with kitchen ops.",
-    image: "/projects/ieat.png",
-    url: "https://ieat.com.pk",
-    stack: ["Next.js", "TypeScript", "Tailwind"],
-    metric: "Live",
-    category: "web",
-  },
-  {
     id: "sweetreats-dashboard",
     name: "SweeTreats Dashboard",
     year: "2024",
     role: "Engineer",
     description:
       "Admin dashboard for the SweeTreats business — order ops, inventory, customer management.",
+    image: "/projects/sweetreats-dashboard.png",
     url: "https://dashboard.sweetreats.com",
     stack: ["Next.js", "TypeScript", "Tailwind"],
     metric: "Internal",
@@ -344,43 +332,7 @@ export const projects: Project[] = [
     category: "web",
   },
 
-  // ─── ARCHIVED (4) ───────────────────────────────────────
-  {
-    id: "open-store",
-    name: "Open Store",
-    year: "2023",
-    role: "Engineer",
-    description:
-      "Retail marketplace platform for product discovery and direct sales.",
-    url: "https://open.store",
-    stack: ["Next.js", "TypeScript", "Tailwind"],
-    category: "web",
-    status: "archived",
-  },
-  {
-    id: "sepia",
-    name: "Sepia",
-    year: "2023",
-    role: "Engineer",
-    description:
-      "Lifestyle e-commerce and community engagement site for a Pakistan-based brand.",
-    url: "https://sepia.pk",
-    stack: ["Next.js", "TypeScript", "Tailwind"],
-    category: "web",
-    status: "archived",
-  },
-  {
-    id: "zendigitix",
-    name: "Zendigitix",
-    year: "2023",
-    role: "Engineer",
-    description:
-      "Digital services agency site — service catalog, portfolio, contact flows.",
-    url: "https://zendigitix.com",
-    stack: ["Next.js", "TypeScript", "Tailwind"],
-    category: "web",
-    status: "archived",
-  },
+  // ─── ARCHIVED (1) ───────────────────────────────────────
   {
     id: "buy-sell-liberia",
     name: "Buy Sell Liberia",

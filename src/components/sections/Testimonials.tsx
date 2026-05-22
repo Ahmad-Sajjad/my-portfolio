@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { testimonials, trustedBy } from "@/data/testimonials";
+import Image from "next/image";
+import { testimonials, clientLogos } from "@/data/testimonials";
 import { SectionHead } from "./SectionHead";
 
 export function Testimonials() {
@@ -35,33 +36,68 @@ export function Testimonials() {
             testimonials.length,
           ).padStart(2, "0")}`}
         />
-        <div className="testi-wrap">
-          <div className="testi-avatar" aria-hidden>
-            {t.initial}
-          </div>
-          <div className="testi-body">
-            <p className="testi-quote">{t.quote}</p>
-            <div className="testi-attr">
-              <span className="name">{t.name}</span>
-              <span className="sep">·</span>
-              <span>
-                {t.role}, {t.company}
-              </span>
-              <span className="sep">·</span>
-              <a
-                href={t.link}
-                target={t.link.startsWith("http") ? "_blank" : undefined}
-                rel={
-                  t.link.startsWith("http")
-                    ? "noopener noreferrer"
-                    : undefined
-                }
+
+        <div className="testi-stage">
+          <button
+            type="button"
+            className="testi-side-nav prev"
+            onClick={() =>
+              setI((x) => (x - 1 + testimonials.length) % testimonials.length)
+            }
+            aria-label="Previous testimonial"
+          >
+            ←
+          </button>
+
+          {/* Card remounts on each i change so the entrance animation
+              plays — smooth fade-up between testimonials. */}
+          <article className="testi-card" key={i}>
+            <div className="testi-card-aside">
+              <div
+                className={`testi-photo ${t.image ? "has-photo" : ""}`}
               >
-                verify ↗
-              </a>
+                {t.image ? (
+                  <Image
+                    src={t.image}
+                    alt={t.name}
+                    fill
+                    sizes="(max-width: 1024px) 120px, 200px"
+                    style={{ objectFit: "cover", objectPosition: "center" }}
+                  />
+                ) : (
+                  <span aria-hidden>{t.initial}</span>
+                )}
+              </div>
+              <div className="testi-aside-meta">
+                <div className="testi-name">{t.name}</div>
+                <div className="testi-company">{t.company}</div>
+              </div>
             </div>
-          </div>
+
+            <div className="testi-card-body">
+              <span className="testi-mark" aria-hidden>
+                &ldquo;
+              </span>
+              <p className="testi-quote">{t.quote}</p>
+              <div className="testi-card-foot">
+                <span className="testi-index">
+                  {String(i + 1).padStart(2, "0")} /{" "}
+                  {String(testimonials.length).padStart(2, "0")}
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <button
+            type="button"
+            className="testi-side-nav next"
+            onClick={() => setI((x) => (x + 1) % testimonials.length)}
+            aria-label="Next testimonial"
+          >
+            →
+          </button>
         </div>
+
         <div className="testi-controls">
           <div className="testi-dots">
             {testimonials.map((_, k) => (
@@ -75,42 +111,31 @@ export function Testimonials() {
               />
             ))}
           </div>
-          <div className="testi-nav">
-            <button
-              type="button"
-              onClick={() =>
-                setI((x) => (x - 1 + testimonials.length) % testimonials.length)
-              }
-              aria-label="Previous testimonial"
-            >
-              ←
-            </button>
-            <button
-              type="button"
-              onClick={() => setI((x) => (x + 1) % testimonials.length)}
-              aria-label="Next testimonial"
-            >
-              →
-            </button>
-          </div>
         </div>
 
         <div className="logo-strip">
-          <span className="label">trusted by</span>
-          {trustedBy.map((name, k) => (
-            <span
-              key={k}
-              style={
-                name.startsWith("+")
-                  ? { fontFamily: "var(--font-mono)", fontSize: 14 }
-                  : name.endsWith(".")
-                    ? { fontStyle: "italic" }
-                    : undefined
-              }
-            >
-              {name}
-            </span>
-          ))}
+          <span className="logo-strip-label">trusted by</span>
+          <div className="logo-strip-wrap" aria-hidden>
+            <div className="logo-strip-track">
+              {/* Duplicate the list so the translateX -50% loop is seamless. */}
+              {[...clientLogos, ...clientLogos].map((l, k) => (
+                <div
+                  key={k}
+                  className="logo-tile"
+                  data-dark={l.darkBg ? "true" : undefined}
+                  title={l.name}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={l.src}
+                    alt={l.name}
+                    className="logo"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

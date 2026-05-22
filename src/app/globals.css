@@ -1071,30 +1071,65 @@ section {
   border-top: 1px dashed var(--border); padding-top: 8px;
 }
 
-/* CSS-only placeholder for projects without a hero screenshot. */
+/* CSS-only placeholder for projects without a hero screenshot.
+   Styled as an editorial brand-card: gradient surface + soft grid +
+   serif project name centered, with a short accent stripe in the
+   top-left so it doesn't read as a placeholder. */
 .mock-fallback {
   position: absolute;
   inset: 0;
-  background: linear-gradient(140deg, color-mix(in oklab, var(--accent) 6%, var(--surface)), var(--surface));
-  display: grid;
-  place-items: center;
+  background:
+    linear-gradient(135deg,
+      color-mix(in oklab, var(--accent) 10%, var(--surface)) 0%,
+      var(--surface) 55%,
+      color-mix(in oklab, var(--accent) 4%, var(--surface)) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
+  padding: 14px 22px;
+}
+.mock-fallback::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  opacity: 0.55;
+}
+.mock-fallback::after {
+  content: "";
+  position: absolute;
+  bottom: -36%;
+  right: -10%;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--accent) 18%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
 }
 .mock-fallback .mock-grid-bg {
-  position: absolute; inset: 0;
-  opacity: 0.4;
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
 }
 .mock-fallback-name {
   position: relative;
   z-index: 1;
   font-family: var(--font-serif);
-  font-size: clamp(14px, 1.8vw, 22px);
+  font-size: clamp(16px, 2.6vw, 34px);
   font-weight: 350;
   letter-spacing: -0.02em;
-  color: var(--text-dim);
+  line-height: 1.05;
+  color: var(--text);
   text-align: center;
-  padding: 0 16px;
-  font-variation-settings: "opsz" 60;
+  font-variation-settings: "opsz" 90, "SOFT" 30;
 }
 
 /* Generic demo placeholder */
@@ -1136,78 +1171,185 @@ section {
 .mock-bot .msgs .row.user .t { color: var(--text-dim); }
 .mock-bot .msgs .row.bot .t { color: var(--accent); }
 
-/* ─── testimonials ──────────────────────────────────────── */
-.testi-wrap {
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--surface);
-  padding: 40px 48px;
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  gap: 40px;
+/* ─── testimonials — featured card ─────────────────────── */
+.testi-stage {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
   align-items: center;
-  min-height: 280px;
-  position: relative;
+  gap: 20px;
 }
-.testi-avatar {
-  width: 140px; height: 140px;
+.testi-side-nav {
+  flex-shrink: 0;
+  appearance: none;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
   border-radius: 50%;
-  background: linear-gradient(160deg, var(--accent), color-mix(in oklab, var(--accent) 40%, var(--surface-2)));
-  display: grid; place-items: center;
-  font-family: var(--font-serif);
-  font-size: 52px;
+  color: var(--text-dim);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1;
+  transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.2s;
+}
+.testi-side-nav:hover {
   color: var(--accent-ink);
-  font-weight: 350;
-  letter-spacing: -0.02em;
-  border: 1px solid var(--border);
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.testi-side-nav.prev:hover { transform: translateX(-2px); }
+.testi-side-nav.next:hover { transform: translateX(2px); }
+.testi-stage > .testi-card { flex: 1; min-width: 0; }
+.testi-card {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 32px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: 6px;
+  padding: 28px 32px;
   position: relative;
   overflow: hidden;
+  /* keyed remount triggers a fade-up */
+  animation: testiIn 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
-.testi-avatar::before {
+.testi-card::before {
   content: "";
-  position: absolute; inset: 0;
-  background: radial-gradient(circle at 30% 25%, rgba(255,255,255,0.18), transparent 50%);
+  position: absolute;
+  top: 0; left: 0;
+  width: 60px; height: 2px;
+  background: var(--accent);
 }
-.testi-body {
-  display: flex; flex-direction: column; gap: 28px;
+.testi-card::after {
+  content: "";
+  position: absolute;
+  bottom: -40%;
+  right: -10%;
+  width: 45%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    color-mix(in oklab, var(--accent) 12%, transparent),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+@keyframes testiIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .testi-card { animation: none; }
+}
+
+/* Left aside: photo + name/company stacked */
+.testi-card-aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+.testi-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  background: var(--bg);
+}
+.testi-photo.has-photo { background: transparent; }
+.testi-photo > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-serif);
+  font-size: 52px;
+  color: var(--accent);
+  background: linear-gradient(160deg, color-mix(in oklab, var(--accent) 16%, var(--surface-2)), var(--surface-2));
+  font-weight: 350;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 90;
+}
+.testi-aside-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.testi-name {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-weight: 350;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
+  color: var(--text);
+  font-variation-settings: "opsz" 60, "SOFT" 30;
+}
+.testi-company {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Right body: decorative mark, quote, foot */
+.testi-card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.testi-mark {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 48px;
+  font-weight: 350;
+  line-height: 0.55;
+  color: var(--accent);
+  opacity: 0.85;
+  font-variation-settings: "opsz" 144, "SOFT" 100;
+  margin-left: -2px;
 }
 .testi-quote {
   font-family: var(--font-serif);
-  font-size: clamp(20px, 2.1vw, 26px);
+  font-size: clamp(15px, 1.3vw, 17px);
   font-weight: 350;
-  line-height: 1.5;
-  letter-spacing: -0.01em;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
   color: var(--text);
   margin: 0;
-  font-variation-settings: "opsz" 40, "SOFT" 30;
+  max-width: 56ch;
+  font-variation-settings: "opsz" 30, "SOFT" 30;
   text-wrap: pretty;
 }
-.testi-quote::before {
-  content: "\201C";
-  color: var(--accent);
-  font-size: 1.2em;
-  line-height: 0;
-  margin-right: 4px;
-  vertical-align: -0.05em;
+.testi-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border-strong);
 }
-.testi-attr {
-  display: flex; align-items: center; gap: 14px;
+.testi-index {
   font-family: var(--font-mono);
-  font-size: 11.5px;
-  color: var(--text-dim);
-  letter-spacing: 0.02em;
-}
-.testi-attr .name { color: var(--text); }
-.testi-attr .sep { color: var(--text-faint); }
-.testi-attr a {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--text-faint);
-  text-decoration: none;
-  transition: color 0.2s;
 }
-.testi-attr a:hover { color: var(--accent); }
 
 .testi-controls {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex; align-items: center; justify-content: center;
   margin-top: 24px;
 }
 .testi-dots { display: flex; gap: 8px; }
@@ -1237,26 +1379,86 @@ section {
 }
 .testi-nav button:hover { color: var(--text); border-color: var(--border-strong); }
 
+/* Client logo marquee under the testimonials. Label sticks on the left,
+   logos scroll horizontally on the right with a soft edge-fade mask. */
 .logo-strip {
-  margin-top: 28px;
-  display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
-  justify-content: space-between;
+  margin-top: 36px;
   padding-top: 24px;
-  border-top: 1px dashed var(--border);
-  font-family: var(--font-serif);
-  font-size: 17px;
-  color: var(--text-faint);
-  font-weight: 350;
-  letter-spacing: -0.015em;
+  border-top: 1px dashed var(--border-strong);
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 24px;
+  align-items: center;
 }
-.logo-strip span { transition: color 0.25s; cursor: default; }
-.logo-strip span:hover { color: var(--text); }
-.logo-strip .label {
+.logo-strip-label {
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-faint);
+}
+.logo-strip-wrap {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    black 5%,
+    black 95%,
+    transparent 100%
+  );
+}
+.logo-strip-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  animation: marquee 30s linear infinite;
+  padding-right: 16px;
+}
+/* Uniform white tile around each logo — gives a consistent size and
+   keeps light-bg logos (e.g. PowerSell) visible against the page bg. */
+.logo-strip-track .logo-tile {
+  width: 124px;
+  height: 56px;
+  flex: 0 0 124px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 12px;
+  transition: transform 0.3s, border-color 0.2s;
+  user-select: none;
+  overflow: hidden;
+}
+/* Wordmarks that are white / very light need a dark backdrop to be visible.
+   Extra horizontal padding so wide wordmarks (PowerSell) don't fill edge-to-edge
+   and stay visually consistent with the squarer logos. */
+.logo-strip-track .logo-tile[data-dark="true"] {
+  background: #0c0c0c;
+  border-color: #303030;
+  padding: 10px 22px;
+}
+.logo-strip-track .logo-tile:hover {
+  transform: scale(1.05);
+  border-color: var(--border-strong);
+}
+.logo-strip-track .logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  max-width: none;
+  max-height: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-strip-track { animation: none; }
 }
 
 /* ─── tech stack — editorial chip groups ────────────────── */
@@ -1773,8 +1975,12 @@ section {
   .principles { grid-template-columns: 1fr; gap: 18px; }
   .contact-grid { grid-template-columns: 1fr; gap: 40px; }
   .contact-aside { border-left: none; padding-left: 0; border-top: 1px solid var(--border); padding-top: 32px; }
-  .testi-wrap { grid-template-columns: 1fr; padding: 32px; gap: 24px; text-align: left; }
-  .testi-avatar { width: 92px; height: 92px; font-size: 34px; }
+  .testi-card { grid-template-columns: 1fr; padding: 24px 22px; gap: 22px; }
+  .testi-card-aside { flex-direction: row; align-items: center; gap: 16px; }
+  .testi-photo { width: 72px; height: 72px; aspect-ratio: 1; }
+  .testi-photo > span { font-size: 28px; }
+  .testi-name { font-size: 16px; }
+  .testi-mark { font-size: 40px; }
   .tech-group { grid-template-columns: 1fr; gap: 14px; }
   .svc-list { grid-template-columns: 1fr; }
   .svc-entry { min-height: 0; padding: 22px 18px 18px; }
