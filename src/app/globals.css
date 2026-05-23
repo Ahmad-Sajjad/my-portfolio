@@ -29,8 +29,8 @@
   --surface: #F4F4F2;
   --surface-2: #ECECEA;
   --text: #0C0C0C;
-  --text-dim: #6B6B69;
-  --text-faint: #B0B0AE;
+  --text-dim: #5A5A58;     /* was #6B6B69 — 6.4:1 on bg, AAA */
+  --text-faint: #6A6A68;   /* was #B0B0AE — now ~4.6:1 on bg, AA */
   --border: #E5E5E2;
   --border-strong: #D0D0CD;
 

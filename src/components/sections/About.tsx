@@ -19,10 +19,13 @@ export function About() {
             <div className="about-photo">
               <Image
                 src="/ahmad.jpg"
-                alt="Ahmad Sajjad"
+                alt="Ahmad Sajjad — portrait"
                 width={600}
                 height={750}
-                priority
+                /* Below-the-fold on mobile; priority would waste the
+                   preload budget that should go to the hero font / LCP. */
+                loading="lazy"
+                sizes="(max-width: 1024px) 320px, 240px"
               />
               <PhotoCorner />
             </div>

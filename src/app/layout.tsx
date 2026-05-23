@@ -13,7 +13,9 @@ import { SITE_URL } from "@/lib/siteUrl";
 const fraunces = Fraunces({
   subsets: ["latin"],
   variable: "--font-fraunces",
-  axes: ["opsz", "SOFT"],
+  // opsz only — the SOFT axis nearly doubled the variable-font file size
+  // for negligible visual difference. Dropped it 2026-05-23 to cut LCP.
+  axes: ["opsz"],
   display: "swap",
 });
 
