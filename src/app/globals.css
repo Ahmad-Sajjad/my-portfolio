@@ -1595,10 +1595,13 @@ section {
   gap: 14px !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   letter-spacing: 0 !important;
   text-transform: none !important;
-  color: var(--accent-ink) !important;
+  /* Dark text on orange = 5.56:1 contrast, passes WCAG AA. White on
+     orange was only 3.31:1 which Lighthouse flagged as a fail for
+     normal-weight text. */
+  color: #0C0C0C !important;
   background: var(--accent) !important;
   border: 1px solid var(--accent) !important;
   border-radius: 999px !important;
@@ -1610,11 +1613,11 @@ section {
     transform 0.25s, box-shadow 0.25s;
 }
 .contact a.email-button:hover {
-  background: var(--text) !important;
-  border-color: var(--text) !important;
-  color: var(--bg) !important;
+  background: #0C0C0C !important;
+  border-color: #0C0C0C !important;
+  color: #FBFBFA !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px color-mix(in oklab, var(--text) 22%, transparent);
+  box-shadow: 0 8px 22px color-mix(in oklab, #0C0C0C 22%, transparent);
 }
 .contact a.email-button span {
   display: inline-block;
