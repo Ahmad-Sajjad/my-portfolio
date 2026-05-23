@@ -17,13 +17,15 @@ export default function Home() {
       <SmoothScroll />
       <ScrollProgress />
       <Nav />
-      <Hero />
-      <About />
-      <Services />
-      <Projects />
-      <Testimonials />
-      <TechStack />
-      <Contact />
+      <main id="main">
+        <Hero />
+        <About />
+        <Services />
+        <Projects />
+        <Testimonials />
+        <TechStack />
+        <Contact />
+      </main>
       <Footer />
       <CommandPalette />
     </>

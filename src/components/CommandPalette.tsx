@@ -100,7 +100,10 @@ export function CommandPalette() {
     <div
       className={`cmdk-back ${open ? "open" : ""}`}
       onClick={() => setOpen(false)}
-      aria-hidden={!open}
+      /* `inert` removes the input + role=button items from tab order and
+         prevents interaction when closed — fixes the Lighthouse audit
+         "aria-hidden elements contain focusable descendents". */
+      inert={!open}
     >
       <div className="cmdk" onClick={(e) => e.stopPropagation()}>
         <input

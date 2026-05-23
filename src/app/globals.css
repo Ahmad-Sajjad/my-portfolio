@@ -874,7 +874,8 @@ section {
   background: transparent;
   border: 1px solid var(--border-strong);
   color: var(--text-dim);
-  padding: 7px 14px;
+  padding: 14px 18px;        /* was 7px 14px — bumped for ≥48px tap target */
+  min-height: 48px;
   border-radius: 3px;
   cursor: pointer;
   font-family: var(--font-mono);
@@ -895,7 +896,7 @@ section {
   gap: 4px;
 }
 .proj-pagination .pages .num {
-  min-width: 38px;
+  min-width: 48px;          /* was 38px */
   text-align: center;
 }
 .proj-pagination .pages .num.active {
@@ -1184,8 +1185,8 @@ section {
 .testi-side-nav {
   flex-shrink: 0;
   appearance: none;
-  width: 44px;
-  height: 44px;
+  width: 48px;              /* was 44 — bumped to WCAG AA tap target */
+  height: 48px;             /* was 44 */
   border: 1px solid var(--border-strong);
   background: var(--surface);
   border-radius: 50%;
@@ -1381,14 +1382,27 @@ section {
 }
 .testi-dots { display: flex; gap: 8px; }
 .testi-dots .dot {
-  width: 24px; height: 2px;
-  background: var(--border-strong);
+  /* Visual stays as a 24×2 bar; the button itself is 48×48 so the
+     tap target is large enough for Lighthouse / WCAG. */
+  width: 48px;
+  height: 48px;
+  background: transparent;
   border: none;
   padding: 0;
   cursor: pointer;
+  position: relative;
   transition: background 0.2s;
 }
-.testi-dots .dot.active { background: var(--accent); }
+.testi-dots .dot::before {
+  content: "";
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 24px; height: 2px;
+  margin: -1px 0 0 -12px;
+  background: var(--border-strong);
+  transition: background 0.2s;
+}
+.testi-dots .dot.active::before { background: var(--accent); }
 .testi-nav {
   display: flex; gap: 8px;
 }
