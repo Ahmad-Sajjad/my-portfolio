@@ -679,7 +679,9 @@ section {
 }
 .proj-filters button:hover { color: var(--text); }
 .proj-filters button.active {
-  color: var(--accent-ink);
+  /* Dark text on orange (5.56:1) instead of white on orange (3.31:1)
+     which Lighthouse flags as fails-AA for 11px text. */
+  color: #0C0C0C;
   background: var(--accent);
 }
 
@@ -902,10 +904,11 @@ section {
 .proj-pagination .pages .num.active {
   background: var(--accent);
   border-color: var(--accent);
-  color: var(--accent-ink);
+  /* dark on orange — passes AA where white was 3.31:1 fail */
+  color: #0C0C0C;
 }
 .proj-pagination .pages .num.active:hover {
-  color: var(--accent-ink);
+  color: #0C0C0C;
   border-color: var(--accent);
 }
 
@@ -920,7 +923,9 @@ section {
   font-variation-settings: "opsz" 30;
   line-height: 1.5;
 }
-.proj-sentence em { color: var(--accent); font-style: italic; }
+/* Italic alone provides emphasis. Dropping accent color — at 18–22px
+   regular weight, accent on bg is 3.31:1 which fails AA. */
+.proj-sentence em { color: var(--text); font-style: italic; }
 
 /* ─── project mock screens ──────────────────────────────── */
 .mock-screen {
@@ -1525,7 +1530,9 @@ section {
   display: flex; flex-direction: column; gap: 4px;
 }
 .tech-group .label .num {
-  color: var(--accent);
+  /* was var(--accent) — orange on bg is 3.31:1, fails WCAG AA at 9.5px.
+     text-faint is now 5.14:1, passes. */
+  color: var(--text-faint);
   font-size: 9.5px;
 }
 .tech-group .chips {
