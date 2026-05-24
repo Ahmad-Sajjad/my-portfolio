@@ -6,7 +6,7 @@ export const hero: HeroContent = {
     "Full stack engineer building software ",
     { em: "people actually use." },
   ],
-  sub: "I'm Ahmad — founder of Reivex Technologies. I design and ship production-grade web, mobile, and AI products end-to-end, with a stubborn focus on performance, reliability and the experience around them.",
+  sub: "I'm Ahmad Sajjad — founder of Reivex Technologies. I design and ship production-grade web, mobile, and AI products end-to-end, with a stubborn focus on performance, reliability and the experience around them.",
   primaryCta: { label: "See selected work", href: "#work" },
   secondaryCta: { label: "or email me directly", href: "#contact" },
   marqueeWords: [
