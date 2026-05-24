@@ -1,7 +1,6 @@
 import { site } from "@/data/site";
 import { projects } from "@/data/projects";
 import { services } from "@/data/services";
-import { testimonials } from "@/data/testimonials";
 import { SITE_URL } from "@/lib/siteUrl";
 
 /**
@@ -118,22 +117,11 @@ export function JsonLd() {
     })),
   };
 
-  // Reviews are emitted without `reviewRating` and without `datePublished`
-  // — the source data carries no structured rating, and fabricating a
-  // 5-star value would violate Google's structured-data policy.
-  const reviews = testimonials.map((t) => ({
-    "@context": "https://schema.org",
-    "@type": "Review",
-    author: {
-      "@type": "Person",
-      name: t.name,
-      ...(t.company && {
-        affiliation: { "@type": "Organization", name: t.company },
-      }),
-    },
-    reviewBody: t.quote,
-    itemReviewed: { "@type": "Person", name: site.name, url: SITE_URL },
-  }));
+  // Review schema removed 2026-05-24: Google's Review snippet spec rejects
+  // a Person as `itemReviewed` ("Invalid object type for field
+  // 'itemReviewed'"). Person-on-Person reviews aren't a supported pattern
+  // and the markup wasn't helping ranking anyway — the testimonials still
+  // render as plain HTML in the Testimonials section.
 
   return (
     <>
@@ -162,13 +150,6 @@ export function JsonLd() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalog) }}
       />
-      {reviews.map((r, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(r) }}
-        />
-      ))}
     </>
   );
 }
