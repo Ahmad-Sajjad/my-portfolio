@@ -1536,7 +1536,7 @@ section {
   font-size: 9.5px;
 }
 .tech-group .chips {
-  display: flex; flex-wrap: wrap; gap: 10px;
+  display: flex; flex-wrap: wrap; gap: 14px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1544,25 +1544,15 @@ section {
 .tech-group .chip {
   position: relative;
   display: inline-flex; align-items: center; justify-content: center;
-  width: 48px; height: 48px;
-  border: 1px solid var(--border-strong);
-  border-radius: 10px;
-  background: var(--surface);
-  /* Icon color is set inline per-skill via the COLORS map in
-     TechStack.tsx so each tile shows its real brand color. */
-  transition: background 0.2s, border-color 0.2s, transform 0.2s,
-    box-shadow 0.2s;
+  width: 56px; height: 56px;
+  /* No background, no border, no hover. Icons sit directly on the page
+     bg, colored per-brand via the inline COLORS map in TechStack.tsx.
+     `title` on each <li> gives the native browser tooltip with the name. */
   cursor: default;
 }
-.tech-group .chip:hover {
-  background: var(--bg);
-  border-color: var(--border-strong);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 14px color-mix(in oklab, #0c0c0c 8%, transparent);
-}
 .tech-group .chip-icon {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   display: block;
 }
 .tech-group .chip-fallback {
@@ -1574,28 +1564,19 @@ section {
   text-align: center;
   line-height: 1.05;
 }
-/* Visible-on-hover tooltip with the skill name. Also serves as the
-   accessible label via .chip-name being readable by screen readers. */
+/* Skill name available to screen readers only — sighted users get the
+   native browser tooltip from the `title` attribute on the <li>. */
 .tech-group .chip .chip-name {
   position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.04em;
-  color: var(--bg);
-  background: #0c0c0c;
-  padding: 4px 8px;
-  border-radius: 3px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.15s;
-  z-index: 10;
+  border: 0;
 }
-.tech-group .chip:hover .chip-name,
-.tech-group .chip:focus-within .chip-name { opacity: 1; }
 .tech-sentence {
   text-align: center;
   font-family: var(--font-serif);

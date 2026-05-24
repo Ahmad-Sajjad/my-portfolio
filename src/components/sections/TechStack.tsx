@@ -1,3 +1,4 @@
+import type { SVGProps } from "react";
 import type { IconType } from "react-icons";
 import {
   SiTypescript,
@@ -36,7 +37,6 @@ import {
   SiGit,
   SiGithub,
   SiDocker,
-  SiVercel,
   SiLinux,
   SiFigma,
   SiAndroidstudio,
@@ -44,6 +44,23 @@ import {
 import { VscCode } from "react-icons/vsc";
 import { skillGroups } from "@/data/skills";
 import { SectionHead } from "./SectionHead";
+
+/**
+ * Vercel favicon-style mark: black circle with white triangle inside.
+ * Matches the badge Vercel uses for app icons / favicons. Uses
+ * currentColor for the circle so the per-skill color in COLORS still
+ * applies; the inner triangle stays white.
+ */
+const VercelIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <circle cx="12" cy="12" r="12" fill="currentColor" />
+    <path d="M6 16.5h12L12 6.5z" fill="#FFFFFF" />
+  </svg>
+);
 
 /**
  * Brand color per skill (from simpleicons.org). Used as the icon color
@@ -138,7 +155,7 @@ const ICONS: Record<string, IconType> = {
   Git: SiGit,
   GitHub: SiGithub,
   Docker: SiDocker,
-  Vercel: SiVercel,
+  Vercel: VercelIcon,
   "VS Code": VscCode,
   Linux: SiLinux,
   Figma: SiFigma,
