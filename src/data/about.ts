@@ -53,5 +53,5 @@ export const about: AboutContent = {
       text: "I scope, lead, build, and stand behind the work. No handoffs.",
     },
   ],
-  resume: { label: "resume.pdf — 84 kb", href: "/resume.pdf" },
+  resume: { label: "resume.pdf — 279 kb", href: "/resume.pdf" },
 };
