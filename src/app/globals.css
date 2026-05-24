@@ -1548,15 +1548,17 @@ section {
   border: 1px solid var(--border-strong);
   border-radius: 10px;
   background: var(--surface);
-  color: var(--text);
-  transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s;
+  /* Icon color is set inline per-skill via the COLORS map in
+     TechStack.tsx so each tile shows its real brand color. */
+  transition: background 0.2s, border-color 0.2s, transform 0.2s,
+    box-shadow 0.2s;
   cursor: default;
 }
 .tech-group .chip:hover {
-  background: #0c0c0c;
-  color: var(--accent);
-  border-color: #0c0c0c;
+  background: var(--bg);
+  border-color: var(--border-strong);
   transform: translateY(-2px);
+  box-shadow: 0 4px 14px color-mix(in oklab, #0c0c0c 8%, transparent);
 }
 .tech-group .chip-icon {
   width: 22px;

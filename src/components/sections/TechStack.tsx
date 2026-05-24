@@ -46,6 +46,56 @@ import { skillGroups } from "@/data/skills";
 import { SectionHead } from "./SectionHead";
 
 /**
+ * Brand color per skill (from simpleicons.org). Used as the icon color
+ * so each tile shows the recognisable brand mark in full color.
+ * Black-on-white logos (Next.js, Three.js, Express, GitHub, Vercel,
+ * LangChain) keep their black mark — looks crisp on the surface bg.
+ */
+const COLORS: Record<string, string> = {
+  TypeScript: "#3178C6",
+  JavaScript: "#F7DF1E",
+  Python: "#3776AB",
+  C: "#A8B9CC",
+  "C++": "#00599C",
+  "C#": "#512BD4",
+  Java: "#007396",
+  Kotlin: "#7F52FF",
+  React: "#61DAFB",
+  "Next.js": "#0C0C0C",
+  Tailwind: "#06B6D4",
+  "Three.js": "#0C0C0C",
+  HTML5: "#E34F26",
+  CSS3: "#1572B6",
+  "Material UI": "#007FFF",
+  "Node.js": "#5FA04E",
+  NestJS: "#E0234E",
+  Express: "#0C0C0C",
+  FastAPI: "#009688",
+  PostgreSQL: "#4169E1",
+  MySQL: "#4479A1",
+  SQLite: "#003B57",
+  MongoDB: "#47A248",
+  Redis: "#FF4438",
+  Firebase: "#DD2C00",
+  Supabase: "#3FCF8E",
+  Prisma: "#2D3748",
+  TensorFlow: "#FF6F00",
+  PyTorch: "#EE4C2C",
+  "scikit-learn": "#F7931E",
+  OpenCV: "#5C3EE8",
+  LangChain: "#0C0C0C",
+  "Hugging Face": "#FFD21E",
+  Git: "#F05032",
+  GitHub: "#0C0C0C",
+  Docker: "#2496ED",
+  Vercel: "#0C0C0C",
+  "VS Code": "#007ACC",
+  Linux: "#FCC624",
+  Figma: "#F24E1E",
+  "Android Studio": "#3DDC84",
+};
+
+/**
  * Map skill name -> icon component. Names must match exactly the strings
  * in src/data/skills.ts. Any name not in this map falls back to a small
  * text label (see render below) — currently LangGraph is the only one
@@ -117,6 +167,7 @@ export function TechStack() {
               <ul className="chips" aria-label={`${g.label} skills`}>
                 {g.items.map((s) => {
                   const Icon = ICONS[s.name];
+                  const color = COLORS[s.name];
                   return (
                     <li key={s.name} className="chip" title={s.name}>
                       {Icon ? (
@@ -124,6 +175,7 @@ export function TechStack() {
                           aria-hidden
                           focusable={false}
                           className="chip-icon"
+                          style={color ? { color } : undefined}
                         />
                       ) : (
                         <span className="chip-fallback">{s.name}</span>
