@@ -48,7 +48,9 @@ export function JsonLd() {
   const profilePage = {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    dateCreated: "2026-05-21",
+    // Full ISO 8601 with time + UTC offset — Google's ProfilePage schema
+    // rejects bare YYYY-MM-DD with "Invalid datetime value for dateCreated".
+    dateCreated: "2026-05-21T00:00:00+00:00",
     mainEntity: person,
     url: SITE_URL,
   };
