@@ -1536,29 +1536,64 @@ section {
   font-size: 9.5px;
 }
 .tech-group .chips {
-  display: flex; flex-wrap: wrap; gap: 8px;
+  display: flex; flex-wrap: wrap; gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .tech-group .chip {
-  display: inline-flex; align-items: baseline; gap: 8px;
-  padding: 8px 14px;
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px;
   border: 1px solid var(--border-strong);
-  border-radius: 999px;
+  border-radius: 10px;
   background: var(--surface);
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 500;
   color: var(--text);
-  letter-spacing: -0.005em;
-  transition: all 0.2s;
+  transition: color 0.2s, background 0.2s, border-color 0.2s, transform 0.2s;
   cursor: default;
-  line-height: 1;
 }
 .tech-group .chip:hover {
-  background: var(--accent);
-  color: var(--accent-ink);
-  border-color: var(--accent);
+  background: #0c0c0c;
+  color: var(--accent);
+  border-color: #0c0c0c;
   transform: translateY(-2px);
 }
+.tech-group .chip-icon {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+.tech-group .chip-fallback {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+  padding: 0 4px;
+  text-align: center;
+  line-height: 1.05;
+}
+/* Visible-on-hover tooltip with the skill name. Also serves as the
+   accessible label via .chip-name being readable by screen readers. */
+.tech-group .chip .chip-name {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--bg);
+  background: #0c0c0c;
+  padding: 4px 8px;
+  border-radius: 3px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 10;
+}
+.tech-group .chip:hover .chip-name,
+.tech-group .chip:focus-within .chip-name { opacity: 1; }
 .tech-sentence {
   text-align: center;
   font-family: var(--font-serif);
