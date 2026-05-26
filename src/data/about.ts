@@ -12,8 +12,10 @@ export const about: AboutContent = {
           strong:
             "I've been building production systems for three years and haven't stopped.",
         },
-        " Today I run ",
+        " Today I co-lead ",
         { strong: "Reivex Technologies" },
+        " with my co-founder ",
+        { strong: "Muhammad Ahad Nawaz" },
         " — a studio that ships web, mobile, enterprise, and AI-powered products that real teams depend on daily.",
       ],
     },

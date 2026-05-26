@@ -27,7 +27,7 @@ export function JsonLd() {
     image: `${SITE_URL}/ahmad.jpg`,
     jobTitle: "Full Stack & AI Engineer",
     description:
-      "Full-stack software engineer, founder of Reivex Technologies and co-founder of Binary Brains. 3+ years shipping production-grade web, mobile, and AI-powered products from Lahore, Pakistan.",
+      "Full-stack software engineer, co-founder of Reivex Technologies (alongside Muhammad Ahad Nawaz) and co-founder of Binary Brains. 3+ years shipping production-grade web, mobile, and AI-powered products from Lahore, Pakistan.",
     nationality: "Pakistani",
     worksFor: { "@type": "Organization", name: site.company.name, url: site.company.url },
     // Both Reivex and Binary Brains — schema.org has no separate
@@ -104,7 +104,14 @@ export function JsonLd() {
     url: site.company.url,
     description:
       "Software studio shipping web, mobile, enterprise, and AI-powered products for startups and enterprises.",
-    founder: { "@type": "Person", name: site.name, "@id": `${SITE_URL}/#ahmad-sajjad` },
+    // Co-founded — Ahmad listed first per his canonical anchor; Ahad
+    // listed second so the Org has two named founders bound to it.
+    // Schema.org has no separate `co-founder` edge; an array on
+    // `founder` is the standard pattern for multiple founders.
+    founder: [
+      { "@type": "Person", name: site.name, "@id": `${SITE_URL}/#ahmad-sajjad` },
+      { "@type": "Person", name: "Muhammad Ahad Nawaz" },
+    ],
     email: `mailto:${site.email}`,
     address: {
       "@type": "PostalAddress",
