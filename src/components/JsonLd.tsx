@@ -182,6 +182,83 @@ export function JsonLd() {
   // and the markup wasn't helping ranking anyway — the testimonials still
   // render as plain HTML in the Testimonials section.
 
+  // FAQ schema — AI assistants (ChatGPT Search, Perplexity, Gemini)
+  // pull `acceptedAnswer.text` verbatim when responding to matching
+  // queries. Each Q is phrased like the actual search a stranger would
+  // type ("Who is Ahmad Sajjad?") so the answer surfaces on those
+  // exact queries. Keep each answer 1-3 sentences — long answers
+  // get truncated.
+  const faq = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Who is Ahmad Sajjad?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ahmad Sajjad is a full-stack and AI software engineer based in Lahore, Pakistan. He is the founder of Reivex Technologies and co-founder of Binary Brains, with 3+ years of experience shipping production-grade web, mobile, and AI-powered products end-to-end.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Where is Ahmad Sajjad based?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ahmad Sajjad is based in Lahore, Punjab, Pakistan. He works remotely with international clients and runs Reivex Technologies from there.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What does Ahmad Sajjad do?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ahmad Sajjad designs and ships production-grade web, mobile, and AI-powered products end-to-end. He works across React, Next.js, TypeScript, Node.js, FastAPI, PostgreSQL, LangChain, and the modern AI stack — from initial scoping through architecture, build, and shipping.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is Reivex Technologies?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Reivex Technologies is a software studio co-founded by Ahmad Sajjad and Muhammad Ahad Nawaz. The studio ships web, mobile, enterprise, and AI-powered products for startups and businesses internationally.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What projects has Ahmad Sajjad built?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ahmad Sajjad's selected work includes PowerSell (a gamified real-estate lead platform), India Rare (a conversion-focused e-commerce storefront), Okasha Smart (a Shopify storefront for smart-home products), HBD MM (an iOS lifestyle app), and SweeTreats (a cross-platform food and drink app). Full case studies are on ahmadsajjad.dev.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How can I contact Ahmad Sajjad?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `You can reach Ahmad Sajjad by email at ${site.email}, on GitHub at ${site.github}, or on LinkedIn at ${site.linkedin}. Typical response time is 1-2 hours during Lahore working hours.`,
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What technologies does Ahmad Sajjad use?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ahmad Sajjad works across TypeScript, JavaScript, Python, Swift, Kotlin; React, Next.js, React Native, Tailwind; Node.js, NestJS, FastAPI; PostgreSQL, MongoDB, Redis, Supabase; TensorFlow, PyTorch, LangChain, LangGraph, Hugging Face. He builds on Vercel, AWS, Docker, and Firebase.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "What is Ahmad Sajjad's experience?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Ahmad Sajjad has 3+ years of production engineering experience. He is a UET Lahore Computer Science alumnus, won the CodeRush 2026 Hackathon, and has shipped products including gamified platforms for international clients, ERP and HR suites running in 15+ companies, and AI-driven automation at scale.",
+        },
+      },
+    ],
+  };
+
   return (
     <>
       <script
@@ -208,6 +285,10 @@ export function JsonLd() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceCatalog) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }}
       />
     </>
   );

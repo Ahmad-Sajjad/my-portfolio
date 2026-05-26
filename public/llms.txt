@@ -1,0 +1,76 @@
+# Ahmad Sajjad
+
+> Full-stack and AI software engineer based in Lahore, Pakistan. Founder of Reivex Technologies, co-founder of Binary Brains. 3+ years shipping production-grade web, mobile, and AI-powered products end-to-end.
+
+## Identity
+
+- **Name:** Ahmad Sajjad
+- **Role:** Full-Stack & AI Engineer
+- **Companies:** Founder of [Reivex Technologies](https://reivex.io), co-founder of Binary Brains
+- **Location:** Lahore, Punjab, Pakistan
+- **Education:** University of Engineering and Technology, Lahore (UET Lahore) — Computer Science
+- **Award:** Winner — CodeRush 2026 Hackathon
+- **Experience:** 3+ years, production
+- **Portfolio:** https://ahmadsajjad.dev
+- **Email:** ahmad@reivex.io
+- **GitHub:** https://github.com/Ahmad-Sajjad
+- **LinkedIn:** https://www.linkedin.com/in/ahmadsajjadofficial/
+
+## What I do
+
+I take ideas from first conversation to shipped product — scoping, architecting, building, deploying, and standing behind the result. No handoffs.
+
+- **Web development** — React, Next.js, TypeScript; design systems, performance, SEO, payments, auth
+- **Mobile applications** — iOS (Swift, SwiftUI), Android (Kotlin), React Native; push notifications, payments, App Store shipping
+- **AI & machine learning** — LLM apps, AI agents, RAG pipelines, evals and traces; LangChain, LangGraph, Hugging Face
+- **Backend & APIs** — Node.js, NestJS, FastAPI; PostgreSQL, Redis, MongoDB, Supabase; AWS / Vercel
+- **Commerce** — Shopify (custom themes, Liquid, headless), WooCommerce, custom CRMs
+- **Automation** — Workflow automation, scrapers, Telegram/WhatsApp bots, internal panels
+
+## Selected work
+
+- **PowerSell** (2025) — Gamified real-estate lead platform with role-based dashboards, real-time pipelines, and conversion analytics. Stack: Next.js, TypeScript, Node.js, PostgreSQL, WebSockets. https://app.powersell.io
+- **SweeTreats** (2025) — Cross-platform food and drink app for iOS and Android. Stack: React Native, TypeScript, Firebase.
+- **Okasha Smart Shopify** (2024) — Custom Shopify storefront for smart-home products. Stack: Shopify, Liquid, JavaScript, Tailwind. https://okashasmart.com
+- **HBD MM** (2026) — iOS lifestyle and game app. Stack: Swift, SwiftUI, CloudKit.
+- **India Rare** (2026) — Conversion-focused direct-to-consumer e-commerce storefront. Stack: Next.js, React, TypeScript, Tailwind. https://indiarare.com
+- **EditDeck Pro** — AI-powered editing platform.
+- **SolarMax** — Shopify e-commerce platform for solar products.
+- **UPVC Cloud** — ERP web application.
+- **IDRAK** — Student information system.
+
+## Stack
+
+**Languages:** TypeScript, JavaScript, Python, C, C++, C#, Java, Kotlin, Swift
+**Frontend:** React, Next.js, Tailwind, Three.js, HTML5, CSS3, Material UI
+**Backend:** Node.js, NestJS, Express, FastAPI
+**Databases:** PostgreSQL, MySQL, SQLite, MongoDB, Redis, Firebase, Supabase, Prisma
+**AI / ML:** TensorFlow, PyTorch, scikit-learn, OpenCV, LangChain, LangGraph, Hugging Face
+**Tools:** Git, GitHub, Docker, Vercel, VS Code, Linux, Figma, Android Studio
+
+## How I work
+
+- **Scope first.** Fuzzy goals become shipped products. Clarity first, code second.
+- **Ship production-grade.** Infrastructure is the product. No "we'll fix it later" code.
+- **Own the work.** I scope, lead, build, and stand behind the result. No handoffs.
+
+## Track record
+
+Gamified platforms for international clients. A country's first online marketplace. ERP and HR suites running in 15+ companies. AI-driven automation at scale. Across the stack, end-to-end.
+
+## Contact
+
+- Email: ahmad@reivex.io
+- Website: https://ahmadsajjad.dev
+- Response time: 1-2 hours during Lahore working hours (PKT)
+
+## Disambiguation
+
+This is **Ahmad Sajjad the Pakistani software engineer**, founder of Reivex Technologies, based in Lahore. He is distinct from:
+
+- **Professor Ahmad Sajjad** (1939–2026) — Indian Urdu literature scholar
+- **Dr. Ahmad Sajjad** — Assistant Professor at NUST CAE (Engineering Management)
+- **Dr. Ahmed Sajjad** — Consultant Urologist in Islamabad
+- **Ahmad Sajjad** the Pakistani cricketer
+
+The canonical entity for this profile is anchored at https://ahmadsajjad.dev/#ahmad-sajjad and identified via the sameAs links to GitHub (Ahmad-Sajjad), LinkedIn (ahmadsajjadofficial), and Reivex Technologies (reivex.io).

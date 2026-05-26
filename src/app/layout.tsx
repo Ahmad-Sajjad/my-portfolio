@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     template: `%s · ${site.name}`,
   },
   description:
-    "Full-stack & AI engineer building production-grade web, mobile, and AI products. Founder of Reivex.io. Based in Lahore, Pakistan.",
+    "Ahmad Sajjad — full-stack & AI engineer, founder of Reivex Technologies, co-founder of Binary Brains. CodeRush 2026 winner. UET Lahore. 3+ years shipping production-grade web, mobile, and AI products from Lahore, Pakistan.",
   applicationName: site.name,
   authors: [{ name: site.name, url: site.company.url }],
   creator: site.name,
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} — Full Stack & AI Engineer`,
     description:
-      "Full-stack & AI engineer building production-grade web, mobile, and AI products. Founder of Reivex.io.",
+      "Ahmad Sajjad — full-stack & AI engineer, founder of Reivex Technologies, co-founder of Binary Brains. UET Lahore alum. Shipping web, mobile, and AI products from Lahore, Pakistan.",
     url: SITE_URL,
     locale: "en_US",
     images: [
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${site.name} — Full Stack & AI Engineer`,
     description:
-      "Full-stack & AI engineer building production-grade web, mobile, and AI products. Founder of Reivex.io.",
+      "Ahmad Sajjad — full-stack & AI engineer, founder of Reivex Technologies. Shipping web, mobile, and AI products from Lahore, Pakistan.",
     creator: site.twitter,
     site: site.twitter,
     images: ["/opengraph-image"],
