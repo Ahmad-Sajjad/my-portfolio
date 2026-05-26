@@ -27,9 +27,21 @@ export function JsonLd() {
     image: `${SITE_URL}/ahmad.jpg`,
     jobTitle: "Full Stack & AI Engineer",
     description:
-      "Full-stack software engineer and founder of Reivex Technologies. 3+ years shipping production-grade web, mobile, and AI-powered products from Lahore, Pakistan.",
+      "Full-stack software engineer, founder of Reivex Technologies and co-founder of Binary Brains. 3+ years shipping production-grade web, mobile, and AI-powered products from Lahore, Pakistan.",
     nationality: "Pakistani",
     worksFor: { "@type": "Organization", name: site.company.name, url: site.company.url },
+    // Both Reivex and Binary Brains — schema.org has no separate
+    // `co-founder` relationship, `founder` covers both.
+    founder: [
+      { "@type": "Organization", name: site.company.name, url: site.company.url },
+      { "@type": "Organization", name: "Binary Brains" },
+    ],
+    alumniOf: {
+      "@type": "CollegeOrUniversity",
+      name: "University of Engineering and Technology, Lahore",
+      url: "https://uet.edu.pk/",
+    },
+    award: ["Winner — CodeRush 2026 Hackathon"],
     address: {
       "@type": "PostalAddress",
       addressLocality: site.location.city,
