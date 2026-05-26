@@ -104,7 +104,20 @@ export function JsonLd() {
     url: site.company.url,
     description:
       "Software studio shipping web, mobile, enterprise, and AI-powered products for startups and enterprises.",
-    founder: { "@type": "Person", name: site.name, "@id": `${SITE_URL}/#ahmad-sajjad` },
+    // Reivex is genuinely co-founded — the Organization fact (true for
+    // anyone querying "who founded Reivex") lists both founders, Ahmad
+    // first via his @id anchor. Schema.org's `founder` accepts an array;
+    // there's no separate `co-founder` edge.
+    //
+    // Person.description above intentionally does NOT mention Ahad —
+    // that node powers "who is Ahmad Sajjad" answers and should stay
+    // Ahmad-centric. The two schemas don't contradict: Ahmad is a
+    // founder of Reivex (true), and Reivex was founded by Ahmad and
+    // Ahad (also true).
+    founder: [
+      { "@type": "Person", name: site.name, "@id": `${SITE_URL}/#ahmad-sajjad` },
+      { "@type": "Person", name: "Muhammad Ahad Nawaz" },
+    ],
     email: `mailto:${site.email}`,
     address: {
       "@type": "PostalAddress",
