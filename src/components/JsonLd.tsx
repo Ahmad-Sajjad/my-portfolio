@@ -24,7 +24,7 @@ export function JsonLd() {
     familyName: "Sajjad",
     url: SITE_URL,
     email: `mailto:${site.email}`,
-    image: `${SITE_URL}/ahmad.jpg`,
+    image: `${SITE_URL}/ahmad.png`,
     jobTitle: "Full Stack & AI Engineer",
     description:
       "Full-stack software engineer, founder of Reivex Technologies and co-founder of Binary Brains. 3+ years shipping production-grade web, mobile, and AI-powered products from Lahore, Pakistan.",

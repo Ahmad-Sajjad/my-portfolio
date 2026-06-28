@@ -18,7 +18,7 @@ export function About() {
           <div className="about-photo-wrap">
             <div className="about-photo">
               <Image
-                src="/ahmad.jpg"
+                src="/ahmad.png"
                 alt="Ahmad Sajjad — portrait"
                 width={600}
                 height={750}
