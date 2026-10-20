@@ -1,32 +1,10 @@
 import type { HeroContent } from "@/types/portfolio";
 
 export const hero: HeroContent = {
-  eyebrow: "001 · Lahore based engineer",
-  headline: [
-    "Full stack engineer building software ",
-    { em: "people actually use." },
-  ],
-  sub: "I'm Ahmad Sajjad — founder of Reivex Technologies. I design and ship production-grade web, mobile, and AI products end-to-end, with a stubborn focus on performance, reliability and the experience around them.",
-  primaryCta: { label: "See selected work", href: "#work" },
-  secondaryCta: { label: "or email me directly", href: "#contact" },
-  marqueeWords: [
-    "React",
-    "Next.js",
-    "TypeScript",
-    "Node",
-    "Python",
-    "AI",
-    "Postgres",
-    "Swift",
-    "React Native",
-    "FastAPI",
-    "LangChain",
-    "Shopify",
-    "Tailwind",
-    "Docker",
-    "AWS",
-    "Supabase",
-    "WordPress",
-    "OpenAI",
-  ],
+  eyebrow: "Lahore, Pakistan",
+  headline: ["Ahmad Sajjad."],
+  sub: "Full-stack engineer, co-founder & COO of Reivex Technologies, and CodeRush 2026 winner. Since 2022 I've shipped 24+ production products across five industries: real-estate SaaS, manufacturing ERPs, mobile apps, AI platforms, and UK e-commerce.",
+  primaryCta: { label: "See selected work", href: "/work" },
+  secondaryCta: { label: "Get in touch", href: "/contact" },
+  marqueeWords: [],
 };

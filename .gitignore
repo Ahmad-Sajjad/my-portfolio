@@ -42,3 +42,6 @@ next-env.d.ts
 
 # design reference (prototype + chat handoff, not part of the build)
 /_reference/
+
+# Claude Code workspace config (per-dev; not part of repo)
+/.claude/

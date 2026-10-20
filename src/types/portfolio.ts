@@ -8,7 +8,7 @@
 
 export type TextSegment = string | { em: string } | { strong: string };
 
-export type NavLink = { id: string; label: string };
+export type NavLink = { id: string; label: string; href: string };
 
 export type SiteIdentity = {
   name: string;
@@ -82,6 +82,9 @@ export type Project = {
   status?: ProjectStatus;
   /** Mobile apps: ["iOS"] / ["iOS", "Android"]. */
   platforms?: string[];
+  /** Only true for projects that have a dedicated case-study page.
+   *  Everything else is a plain listing on /work with a Live link only. */
+  hasCaseStudy?: boolean;
 };
 
 export type Testimonial = {

@@ -1,43 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import {
-  Fraunces,
-  Geist,
-  Instrument_Serif,
-  JetBrains_Mono,
-} from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { JsonLd } from "@/components/JsonLd";
+import { SmoothScroll } from "@/components/SmoothScroll";
+import { Nav } from "@/components/sections/Nav";
+import { Footer } from "@/components/sections/Footer";
 import { site } from "@/data/site";
 import { SITE_URL } from "@/lib/siteUrl";
-
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-fraunces",
-  // opsz only — the SOFT axis nearly doubled the variable-font file size
-  // for negligible visual difference. Dropped it 2026-05-23 to cut LCP.
-  axes: ["opsz"],
-  display: "swap",
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  variable: "--font-instrument",
-  weight: "400",
-  style: ["normal", "italic"],
-  display: "swap",
-});
-
-const geist = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-jetbrains",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -111,7 +81,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FBFBFA",
+  themeColor: "#FFFFFF",
   width: "device-width",
   initialScale: 1,
 };
@@ -122,7 +92,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${instrumentSerif.variable} ${geist.variable} ${jetbrainsMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
       <head>
         <link rel="me" href={site.github} />
@@ -130,7 +100,11 @@ export default function RootLayout({
         <JsonLd />
       </head>
       <body>
+        <a href="#main" className="skip-link">Skip to content</a>
+        <SmoothScroll />
+        <Nav />
         {children}
+        <Footer />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.omnisend=window.omnisend||[];omnisend.push(["brandID","6a95702ea42b56bd65ef6e70"]);omnisend.push(["track","$pageViewed"]);!function(){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://omnisnippet1.com/inshop/launcher-v2.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)}();`,

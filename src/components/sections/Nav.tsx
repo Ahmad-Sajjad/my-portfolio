@@ -1,45 +1,69 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { site } from "@/data/site";
 import { navLinks } from "@/data/nav";
 import { MobileMenu } from "./MobileMenu";
 
+/**
+ * Top navigation shown on every page.
+ * Left: wordmark. Centre: route links. Right: Get in touch.
+ * Active route picks up a thin REIVEX-blue underline.
+ */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
+    const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // close the mobile sheet when the route changes
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
+
   return (
     <>
       <nav className={`nav ${scrolled ? "scrolled" : ""}`}>
-        <a className="brand" href="#top" aria-label={`${site.name} — back to top`}>
-          <div className="mono-mark" aria-hidden>
-            {site.monogram}
-          </div>
-          <span>{site.name.toLowerCase()}</span>
-        </a>
-        <div className="links">
+        <Link
+          className="nav__brand"
+          href="/"
+          aria-label={`${site.name} — home`}
+        >
+          <span className="nav__wordmark">{site.name}</span>
+        </Link>
+
+        <div className="nav__links">
           {navLinks.map((l) => (
-            <a key={l.id} href={`#${l.id}`}>
+            <Link
+              key={l.id}
+              href={l.href}
+              className={isActive(l.href) ? "active" : undefined}
+              aria-current={isActive(l.href) ? "page" : undefined}
+            >
               {l.label}
-            </a>
+            </Link>
           ))}
         </div>
-        <div className="status">
-          <span
-            className="pulse"
-            aria-hidden
-            role="presentation"
-          />
-          <span>available for work</span>
+
+        <div className="nav__right">
+          <Link href="/contact" className="nav__cta">
+            Get in touch
+          </Link>
         </div>
+
         <button
           type="button"
           className="nav-menu-toggle"

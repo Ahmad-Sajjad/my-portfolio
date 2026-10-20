@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { navLinks } from "@/data/nav";
 import { site } from "@/data/site";
@@ -17,6 +19,11 @@ type Props = {
  */
 export function MobileMenu({ open, onClose }: Props) {
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const pathname = usePathname();
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   useEffect(() => {
     if (!open) return;
@@ -80,16 +87,18 @@ export function MobileMenu({ open, onClose }: Props) {
       </button>
       <nav className="mobile-menu-nav">
         {navLinks.map((l) => (
-          <a key={l.id} href={`#${l.id}`} onClick={onClose}>
+          <Link
+            key={l.id}
+            href={l.href}
+            onClick={onClose}
+            className={isActive(l.href) ? "active" : undefined}
+            aria-current={isActive(l.href) ? "page" : undefined}
+          >
             {l.label}
-          </a>
+          </Link>
         ))}
       </nav>
       <div className="mobile-menu-foot">
-        <div className="mobile-menu-status">
-          <span className="pulse" aria-hidden />
-          <span>available for work</span>
-        </div>
         <a
           className="mobile-menu-email"
           href={`mailto:${site.email}`}

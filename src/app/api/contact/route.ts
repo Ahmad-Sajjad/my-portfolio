@@ -37,11 +37,16 @@ export async function POST(req: Request) {
   ) {
     return NextResponse.json({ error: "missing fields" }, { status: 400 });
   }
-  const { name, email, message } = body as {
+  const { name, email, message, website } = body as {
     name: string;
     email: string;
     message: string;
+    website?: string;
   };
+  // Honeypot — bots fill this hidden field, humans leave it blank.
+  if (website && website.trim().length > 0) {
+    return NextResponse.json({ ok: true, delivered: false });
+  }
   if (!name?.trim() || !email?.trim() || !message?.trim()) {
     return NextResponse.json({ error: "empty fields" }, { status: 400 });
   }
@@ -66,7 +71,7 @@ export async function POST(req: Request) {
   <p style="margin:0 0 6px;font-size:14px;color:#6b6b69;">
     From <strong style="color:#0c0c0c;">${escapeHtml(name)}</strong> &lt;${escapeHtml(email)}&gt;
   </p>
-  <div style="margin-top:18px;padding:16px 18px;background:#f4f4f2;border-left:3px solid #ea580c;border-radius:4px;white-space:pre-wrap;font-size:15px;line-height:1.6;">
+  <div style="margin-top:18px;padding:16px 18px;background:#f4f4f2;border-left:3px solid #1D81F2;border-radius:4px;white-space:pre-wrap;font-size:15px;line-height:1.6;">
     ${escapeHtml(message)}
   </div>
   <p style="margin-top:24px;font-size:11px;letter-spacing:0.04em;color:#b0b0ae;">
